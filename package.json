@@ -12,17 +12,25 @@
   "scripts": {
     "start:dev:web": "NODE_ENV=development vite",
     "start:dev:desktop": "NODE_ENV=development electron . --enable-accelerated-2d-canvas --enable-gpu-rasterization -disable-software-rasterizer",
+    "start:prod:web": "npm run build && vite preview",
     "build": "NODE_ENV=production tsc && vite build",
     "build:prod:web": "npm run build",
     "build:prod:windows": "npm run build && electron-builder --win",
-    "start:prod:web": "npm run build && vite preview",
+    "test": "jest --passWithNoTests",
     "lint:prettier": "npx prettier --write .",
-    "lint:fix": "npm run lint:prettier"
+    "lint:fix": "npm run lint:prettier",
+    "prepare": "husky"
   },
   "devDependencies": {
-    "kanji-ecs": "^0.0.16",
+    "@types/jest": "^29.5.14",
+    "kanji-ecs": "^0.0.18",
     "electron": "^35.1.2",
     "electron-builder": "^26.0.12",
+    "husky": "^9.1.7",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "ts-jest": "^29.3.0",
+    "ts-node": "^10.9.2",
     "typescript": "~5.8.2",
     "vite": "^6.2.3"
   },
