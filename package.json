@@ -1,10 +1,10 @@
 {
-  "name": "prototype-04",
+  "name": "prototype-playground",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "main": "src/config/electron/main.js",
-  "description": "prototype-04 description",
+  "description": "prototype-playground description",
   "author": {
     "name": "Kanddo",
     "url": "https://github.com/kanddo-studio"
@@ -30,8 +30,8 @@
     "phaser": "^3.88.2"
   },
   "build": {
-    "appId": "com.prototype-04.app",
-    "productName": "prototype-04",
+    "appId": "com.prototype-playground.app",
+    "productName": "prototype-playground",
     "icon": "public/assets/images/icons/icon.ico",
     "win": {
       "icon": "public/assets/images/icons/icon.ico",

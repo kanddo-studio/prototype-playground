@@ -1,4 +1,4 @@
-# **prototype-04**
+# **prototype-playground**
 
 A **2D prototype** built using **Phaser**, **TypeScript**, **Electron**, and **Vite**. The project serves as a foundation for developing games.
 
