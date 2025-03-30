@@ -1,0 +1,56 @@
+{
+  "name": "prototype-04",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "src/config/electron/main.js",
+  "description": "prototype-04 description",
+  "author": {
+    "name": "Kanddo",
+    "url": "https://github.com/kanddo-studio"
+  },
+  "scripts": {
+    "start:dev:web": "NODE_ENV=development vite",
+    "start:dev:desktop": "NODE_ENV=development electron . --enable-accelerated-2d-canvas --enable-gpu-rasterization -disable-software-rasterizer",
+    "build": "NODE_ENV=production tsc && vite build",
+    "build:prod:web": "npm run build",
+    "build:prod:windows": "npm run build && electron-builder --win",
+    "start:prod:web": "npm run build && vite preview",
+    "lint:prettier": "npx prettier --write .",
+    "lint:fix": "npm run lint:prettier"
+  },
+  "devDependencies": {
+    "kanji-ecs": "^0.0.16",
+    "electron": "^35.1.2",
+    "electron-builder": "^26.0.12",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.3"
+  },
+  "dependencies": {
+    "phaser": "^3.88.2"
+  },
+  "build": {
+    "appId": "com.prototype-04.app",
+    "productName": "prototype-04",
+    "icon": "public/assets/images/icons/icon.ico",
+    "win": {
+      "icon": "public/assets/images/icons/icon.ico",
+      "target": [
+        "nsis"
+      ]
+    },
+    "mac": {
+      "icon": "public/assets/images/icons/icon.icns"
+    },
+    "linux": {
+      "icon": "public/assets/images/icons/icon.png"
+    },
+    "files": [
+      "dist/**/*",
+      "src/config/electron/main.js"
+    ],
+    "directories": {
+      "output": "build-desktop"
+    }
+  }
+}
