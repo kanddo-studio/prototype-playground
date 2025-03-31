@@ -1,30 +1,25 @@
 import Phaser from "phaser";
 
+import { Entity, PositionComponent } from "kanji-ecs";
+
 import { CameraZoomSystem } from "../../../../core/systems/Camera/CameraZoomSystem";
+import { CameraComponent } from "../../../../core/components/CameraComponent";
 
 jest.mock("phaser");
 
 describe("CameraZoomSystem", () => {
   let mockScene: Phaser.Scene;
-  let mockEntity: any;
-  let mockCameraComponent: any;
+  let mockEntity: Entity;
+  let mockCameraComponent: CameraComponent;
 
   let wheelHandler: Function;
 
   beforeEach(() => {
     mockScene = new Phaser.Scene();
+    mockCameraComponent = new CameraComponent();
+    mockEntity = new Entity();
 
-    mockCameraComponent = {
-      zoom: 1,
-      minZoom: 0.5,
-      maxZoom: 2,
-    };
-
-    mockEntity = {
-      get: jest.fn().mockImplementation((name: string) => {
-        if (name === "camera") return mockCameraComponent;
-      }),
-    };
+    mockEntity.add("camera", mockCameraComponent);
 
     mockScene.input.on = jest.fn().mockImplementation((event, callback) => {
       if (event === "wheel") wheelHandler = callback;

@@ -1,12 +1,15 @@
 import Phaser from "phaser";
 
+import { Entity, PositionComponent } from "kanji-ecs";
+
 import { CameraDragNDropSystem } from "../../../../core/systems/Camera/CameraDragNDropSystem";
+import { CameraComponent } from "../../../../core/components/CameraComponent";
 
 describe("CameraDragNDropSystem", () => {
   let mockScene: Phaser.Scene;
-  let mockEntity: any;
-  let mockCameraComponent: any;
-  let mockPositionComponent: any;
+  let mockEntity: Entity;
+  let mockCameraComponent: CameraComponent;
+  let mockPositionComponent: PositionComponent;
 
   let pointerdownHandler: Function;
   let pointerupHandler: Function;
@@ -15,31 +18,14 @@ describe("CameraDragNDropSystem", () => {
 
   beforeEach(() => {
     mockScene = new Phaser.Scene();
-    mockScene.cameras = {
-      main: {
-        scrollX: 0,
-        scrollY: 0,
-        zoom: 1,
-        stopFollow: jest.fn(),
-        startFollow: jest.fn(),
-      },
-    } as any;
 
-    mockCameraComponent = {
-      isDragging: false,
-      dragStartX: 0,
-      dragStartY: 0,
-      isFollowActive: true,
-    };
+    mockCameraComponent = new CameraComponent();
+    mockPositionComponent = new PositionComponent(0, 0);
 
-    mockPositionComponent = {};
+    mockEntity = new Entity();
 
-    mockEntity = {
-      get: jest.fn().mockImplementation((name: string) => {
-        if (name === "camera") return mockCameraComponent;
-        if (name === "position") return mockPositionComponent;
-      }),
-    };
+    mockEntity.add("camera", mockCameraComponent);
+    mockEntity.add("position", mockPositionComponent);
 
     mockScene.input.on = jest.fn().mockImplementation((event, callback) => {
       if (event === "pointerdown") pointerdownHandler = callback;
