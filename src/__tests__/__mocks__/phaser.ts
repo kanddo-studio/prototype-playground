@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import Phaser from "phaser";
 
 export class Sprite {
   public x: number;
@@ -19,25 +19,32 @@ export class Sprite {
 export class Scene {
   public add: { sprite: jest.Mock };
   public input: { on: jest.Mock };
-  public cameras: { main: { scrollX: number; scrollY: number; stopFollow: jest.Mock; startFollow: jest.Mock } };
+  public cameras: {
+    main: {
+      scrollX: number;
+      scrollY: number;
+      stopFollow: jest.Mock;
+      startFollow: jest.Mock;
+    };
+  };
 
   constructor() {
     this.add = { sprite: jest.fn() };
     this.input = { on: jest.fn() };
     this.cameras = {
-        main: {
-          scrollX: 0,
-          scrollY: 0,
-          stopFollow: jest.fn(),
-          startFollow: jest.fn(),
-        }
-      };
+      main: {
+        scrollX: 0,
+        scrollY: 0,
+        stopFollow: jest.fn(),
+        startFollow: jest.fn(),
+      },
+    };
   }
 }
 
 const PhaserMock = {
   GameObjects: { Sprite },
-  Scene
+  Scene,
 };
 
 export default PhaserMock;
