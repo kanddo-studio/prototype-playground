@@ -64,24 +64,21 @@ describe("CameraDragNDropSystem", () => {
     expect(mockCameraComponent.isDragging).toBe(true);
     expect(mockCameraComponent.dragStartX).toBe(pointer.worldX);
     expect(mockCameraComponent.dragStartY).toBe(pointer.worldY);
-    expect(mockCameraComponent.isFollowActive).toBe(false);
-    expect(mockScene.cameras.main.stopFollow).toHaveBeenCalled();
+    expect(mockCameraComponent.isFixed).toBe(false);
   });
 
   it("should stop dragging and start following when pointerup is triggered", () => {
     pointerupHandler();
 
     expect(mockCameraComponent.isDragging).toBe(false);
-    expect(mockCameraComponent.isFollowActive).toBe(true);
-    expect(mockScene.cameras.main.startFollow).toHaveBeenCalled();
+    expect(mockCameraComponent.isFixed).toBe(true);
   });
 
   it("should stop dragging and start following when pointerupoutside is triggered", () => {
     pointerupoutsideHandler();
 
     expect(mockCameraComponent.isDragging).toBe(false);
-    expect(mockCameraComponent.isFollowActive).toBe(true);
-    expect(mockScene.cameras.main.startFollow).toHaveBeenCalled();
+    expect(mockCameraComponent.isFixed).toBe(true);
   });
 
   it("should move the camera when dragging and pointermove is triggered", () => {

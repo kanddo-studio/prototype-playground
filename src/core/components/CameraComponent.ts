@@ -6,6 +6,6 @@ export class CameraComponent {
     public isDragging: boolean = false,
     public dragStartX: number = 0,
     public dragStartY: number = 0,
-    public isFollowActive: boolean = true,
+    public isFixed: boolean = true,
   ) {}
 }

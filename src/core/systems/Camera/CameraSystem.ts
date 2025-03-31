@@ -18,8 +18,9 @@ export class CameraSystem {
       throw new Error("Error: Missing Component Dependency");
     }
 
-    if (!cameraComponent.isDragging && cameraComponent.isFollowActive) {
-      this.scene.cameras.main.startFollow(positionComponent);
+    if (!cameraComponent.isDragging && cameraComponent.isFixed) {
+      return this.scene.cameras.main.startFollow(positionComponent);
     }
+    return this.scene.cameras.main.stopFollow();
   }
 }

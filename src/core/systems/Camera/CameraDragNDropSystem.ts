@@ -15,12 +15,10 @@ export class CameraDragNDropSystem {
         throw new Error("Error: Missing Component Dependency");
       }
 
+      cameraComponent.isFixed = false;
       cameraComponent.isDragging = true;
       cameraComponent.dragStartX = pointer.worldX;
       cameraComponent.dragStartY = pointer.worldY;
-
-      cameraComponent.isFollowActive = false;
-      scene.cameras.main.stopFollow();
     });
 
     this.scene.input.on("pointerup", () => {
@@ -31,9 +29,8 @@ export class CameraDragNDropSystem {
         throw new Error("Error: Missing Component Dependency");
       }
 
+      cameraComponent.isFixed = true;
       cameraComponent.isDragging = false;
-      cameraComponent.isFollowActive = true;
-      scene.cameras.main.startFollow(positionComponent);
     });
 
     this.scene.input.on("pointerupoutside", () => {
@@ -44,9 +41,8 @@ export class CameraDragNDropSystem {
         throw new Error("Error: Missing Component Dependency");
       }
 
+      cameraComponent.isFixed = true;
       cameraComponent.isDragging = false;
-      cameraComponent.isFollowActive = true;
-      scene.cameras.main.startFollow(positionComponent);
     });
 
     this.scene.input.on("pointermove", (pointer: Phaser.Input.Pointer) => {
@@ -59,6 +55,7 @@ export class CameraDragNDropSystem {
       if (!cameraComponent.isDragging) return;
 
       const camera = scene.cameras.main;
+
       const dragX = (pointer.worldX - cameraComponent.dragStartX) * 4;
       const dragY = (pointer.worldY - cameraComponent.dragStartY) * 4;
 

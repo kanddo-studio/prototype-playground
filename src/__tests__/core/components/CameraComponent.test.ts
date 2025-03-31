@@ -14,7 +14,7 @@ describe("CameraComponent", () => {
     expect(camera.isDragging).toBe(false);
     expect(camera.dragStartX).toBe(0);
     expect(camera.dragStartY).toBe(0);
-    expect(camera.isFollowActive).toBe(true);
+    expect(camera.isFixed).toBe(true);
   });
 
   it("should allow setting custom values through constructor", () => {
@@ -26,7 +26,7 @@ describe("CameraComponent", () => {
     expect(customCamera.isDragging).toBe(true);
     expect(customCamera.dragStartX).toBe(100);
     expect(customCamera.dragStartY).toBe(200);
-    expect(customCamera.isFollowActive).toBe(false);
+    expect(customCamera.isFixed).toBe(false);
   });
 
   it("should enforce zoom limits", () => {
@@ -48,10 +48,10 @@ describe("CameraComponent", () => {
   });
 
   it("should allow toggling follow mode", () => {
-    camera.isFollowActive = false;
-    expect(camera.isFollowActive).toBe(false);
+    camera.isFixed = false;
+    expect(camera.isFixed).toBe(false);
 
-    camera.isFollowActive = true;
-    expect(camera.isFollowActive).toBe(true);
+    camera.isFixed = true;
+    expect(camera.isFixed).toBe(true);
   });
 });

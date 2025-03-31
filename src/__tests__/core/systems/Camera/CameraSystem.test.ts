@@ -31,6 +31,7 @@ describe("CameraSystem", () => {
     expect(mockScene.cameras.main.startFollow).toHaveBeenCalledWith(
       mockPositionComponent,
     );
+    expect(mockScene.cameras.main.stopFollow).not.toHaveBeenCalled();
   });
 
   it("should not follow if the camera is dragging", () => {
@@ -39,6 +40,7 @@ describe("CameraSystem", () => {
 
     cameraSystem.update();
 
+    expect(mockScene.cameras.main.stopFollow).toHaveBeenCalledWith();
     expect(mockScene.cameras.main.startFollow).not.toHaveBeenCalled();
   });
 
