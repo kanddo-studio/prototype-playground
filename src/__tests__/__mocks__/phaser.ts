@@ -25,6 +25,7 @@ export class Scene {
       scrollY: number;
       stopFollow: jest.Mock;
       startFollow: jest.Mock;
+      setZoom: jest.Mock;
     };
   };
 
@@ -37,6 +38,7 @@ export class Scene {
         scrollY: 0,
         stopFollow: jest.fn(),
         startFollow: jest.fn(),
+        setZoom: jest.fn(),
       },
     };
   }
@@ -45,6 +47,9 @@ export class Scene {
 const PhaserMock = {
   GameObjects: { Sprite },
   Scene,
+  Math: {
+    Clamp: (value: number, min: number, max: number) => Math.min(Math.max(value, min), max),
+  },
 };
 
 export default PhaserMock;

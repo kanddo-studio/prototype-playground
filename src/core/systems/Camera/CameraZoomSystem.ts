@@ -1,3 +1,5 @@
+import Phaser from "phaser";
+
 import { Entity } from "kanji-ecs";
 
 import { CameraComponent } from "../../components/CameraComponent";
