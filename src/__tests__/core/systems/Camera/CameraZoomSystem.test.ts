@@ -34,7 +34,10 @@ describe("CameraZoomSystem", () => {
   });
 
   it("should initialize the system and set up the wheel event listener", () => {
-    expect(mockScene.input.on).toHaveBeenCalledWith("wheel", expect.any(Function));
+    expect(mockScene.input.on).toHaveBeenCalledWith(
+      "wheel",
+      expect.any(Function),
+    );
   });
 
   it("should zoom out when wheel is scrolled down", () => {
@@ -44,7 +47,9 @@ describe("CameraZoomSystem", () => {
     wheelHandler({}, [], 0, deltaY, 0);
 
     expect(mockCameraComponent.zoom).toBeLessThan(initialZoom);
-    expect(mockScene.cameras.main.setZoom).toHaveBeenCalledWith(mockCameraComponent.zoom);
+    expect(mockScene.cameras.main.setZoom).toHaveBeenCalledWith(
+      mockCameraComponent.zoom,
+    );
   });
 
   it("should zoom in when wheel is scrolled up", () => {
@@ -54,7 +59,9 @@ describe("CameraZoomSystem", () => {
     wheelHandler({}, [], 0, deltaY, 0);
 
     expect(mockCameraComponent.zoom).toBeGreaterThan(initialZoom);
-    expect(mockScene.cameras.main.setZoom).toHaveBeenCalledWith(mockCameraComponent.zoom);
+    expect(mockScene.cameras.main.setZoom).toHaveBeenCalledWith(
+      mockCameraComponent.zoom,
+    );
   });
 
   it("should not zoom below the minimum zoom level", () => {
@@ -64,7 +71,9 @@ describe("CameraZoomSystem", () => {
     wheelHandler({}, [], 0, deltaY, 0);
 
     expect(mockCameraComponent.zoom).toBe(mockCameraComponent.minZoom);
-    expect(mockScene.cameras.main.setZoom).toHaveBeenCalledWith(mockCameraComponent.zoom);
+    expect(mockScene.cameras.main.setZoom).toHaveBeenCalledWith(
+      mockCameraComponent.zoom,
+    );
   });
 
   it("should not zoom above the maximum zoom level", () => {
@@ -74,14 +83,16 @@ describe("CameraZoomSystem", () => {
     wheelHandler({}, [], 0, deltaY, 0);
 
     expect(mockCameraComponent.zoom).toBe(mockCameraComponent.maxZoom);
-    expect(mockScene.cameras.main.setZoom).toHaveBeenCalledWith(mockCameraComponent.zoom);
+    expect(mockScene.cameras.main.setZoom).toHaveBeenCalledWith(
+      mockCameraComponent.zoom,
+    );
   });
 
   it("should throw error if camera component is missing", () => {
     mockEntity.get = jest.fn().mockReturnValue(undefined);
 
     expect(() => wheelHandler({}, [], 0, -100, 0)).toThrow(
-      "Error: Missing Component Dependency"
+      "Error: Missing Component Dependency",
     );
   });
 });

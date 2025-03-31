@@ -48,7 +48,8 @@ const PhaserMock = {
   GameObjects: { Sprite },
   Scene,
   Math: {
-    Clamp: (value: number, min: number, max: number) => Math.min(Math.max(value, min), max),
+    Clamp: (value: number, min: number, max: number) =>
+      Math.min(Math.max(value, min), max),
   },
 };
 

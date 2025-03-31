@@ -53,10 +53,22 @@ describe("CameraDragNDropSystem", () => {
 
   it("should initialize the system and set up event listeners", () => {
     expect(mockScene.input.on).toHaveBeenCalledTimes(4);
-    expect(mockScene.input.on).toHaveBeenCalledWith("pointerdown", expect.any(Function));
-    expect(mockScene.input.on).toHaveBeenCalledWith("pointerup", expect.any(Function));
-    expect(mockScene.input.on).toHaveBeenCalledWith("pointerupoutside", expect.any(Function));
-    expect(mockScene.input.on).toHaveBeenCalledWith("pointermove", expect.any(Function));
+    expect(mockScene.input.on).toHaveBeenCalledWith(
+      "pointerdown",
+      expect.any(Function),
+    );
+    expect(mockScene.input.on).toHaveBeenCalledWith(
+      "pointerup",
+      expect.any(Function),
+    );
+    expect(mockScene.input.on).toHaveBeenCalledWith(
+      "pointerupoutside",
+      expect.any(Function),
+    );
+    expect(mockScene.input.on).toHaveBeenCalledWith(
+      "pointermove",
+      expect.any(Function),
+    );
   });
 
   it("should start dragging when pointerdown is triggered", () => {
@@ -121,7 +133,9 @@ describe("CameraDragNDropSystem", () => {
     mockEntity.get = jest.fn().mockReturnValue(undefined);
     const pointer = { worldX: 10, worldY: 20 };
 
-    expect(() => pointerdownHandler(pointer)).toThrow("Error: Missing Component Dependency");
+    expect(() => pointerdownHandler(pointer)).toThrow(
+      "Error: Missing Component Dependency",
+    );
   });
 
   it("should throw error if camera component is missing on pointerupoutside", () => {
@@ -130,7 +144,9 @@ describe("CameraDragNDropSystem", () => {
       if (name === "position") return mockPositionComponent;
     });
 
-    expect(() => pointerupoutsideHandler()).toThrow("Error: Missing Component Dependency");
+    expect(() => pointerupoutsideHandler()).toThrow(
+      "Error: Missing Component Dependency",
+    );
   });
 
   it("should throw error if camera component is missing on pointerup", () => {
@@ -139,7 +155,9 @@ describe("CameraDragNDropSystem", () => {
       if (name === "position") return mockPositionComponent;
     });
 
-    expect(() => pointerupHandler()).toThrow("Error: Missing Component Dependency");
+    expect(() => pointerupHandler()).toThrow(
+      "Error: Missing Component Dependency",
+    );
   });
 
   it("should throw error if position component is missing on pointerup", () => {
@@ -148,13 +166,17 @@ describe("CameraDragNDropSystem", () => {
       if (name === "position") return undefined;
     });
 
-    expect(() => pointerupHandler()).toThrow("Error: Missing Component Dependency");
+    expect(() => pointerupHandler()).toThrow(
+      "Error: Missing Component Dependency",
+    );
   });
 
   it("should throw error if camera component is missing on pointermove", () => {
     mockEntity.get = jest.fn().mockReturnValue(undefined);
     const pointer = { worldX: 30, worldY: 40 };
 
-    expect(() => pointermoveHandler(pointer)).toThrow("Error: Missing Component Dependency");
+    expect(() => pointermoveHandler(pointer)).toThrow(
+      "Error: Missing Component Dependency",
+    );
   });
 });
