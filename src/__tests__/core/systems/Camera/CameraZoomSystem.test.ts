@@ -1,11 +1,9 @@
 import Phaser from "phaser";
 
-import { Entity, PositionComponent } from "kanji-ecs";
+import { Entity } from "kanji-ecs";
 
 import { CameraZoomSystem } from "../../../../core/systems/Camera/CameraZoomSystem";
 import { CameraComponent } from "../../../../core/components/CameraComponent";
-
-jest.mock("phaser");
 
 describe("CameraZoomSystem", () => {
   let mockScene: Phaser.Scene;
