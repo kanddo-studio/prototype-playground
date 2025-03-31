@@ -44,9 +44,14 @@ export class Scene {
   }
 }
 
+export class Game {
+  constructor() {}
+}
+
 const PhaserMock = {
   GameObjects: { Sprite },
   Scene,
+  Game,
   Math: {
     Clamp: (value: number, min: number, max: number) =>
       Math.min(Math.max(value, min), max),

@@ -1,9 +1,10 @@
 import "../styles/global.css";
+
 import Phaser from "phaser";
 
 import { GameScene } from "./scenes/GameScene";
 
-const config: Phaser.Types.Core.GameConfig = {
+export const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.WEBGL,
   width: 800,
   height: 600,
@@ -25,7 +26,7 @@ const config: Phaser.Types.Core.GameConfig = {
   },
 };
 
-function init() {
+export function init() {
   new Phaser.Game(config);
 }
 

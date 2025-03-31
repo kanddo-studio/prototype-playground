@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-export function createGrid(scene: Phaser.Scene, worldSize: number) {
+function createGrid(scene: Phaser.Scene, worldSize: number) {
   const graphics = scene.add.graphics();
   graphics.lineStyle(1, 0x444444);
 
@@ -16,3 +16,5 @@ export function createGrid(scene: Phaser.Scene, worldSize: number) {
 
   graphics.strokePath();
 }
+
+export { createGrid };

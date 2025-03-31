@@ -6,7 +6,6 @@ import { Entity } from "kanji-ecs/core";
 import { RenderSystem } from "../../../core/systems/RenderSystem";
 import { SpriteComponent } from "../../../core/components/SpriteComponent";
 
-
 describe("RenderSystem", () => {
   let renderSystem: RenderSystem;
   let mockEntity: Entity;
@@ -18,7 +17,12 @@ describe("RenderSystem", () => {
     mockEntity = new Entity();
 
     mockPositionComponent = new PositionComponent(100, 150);
-    const mockSprite = new Phaser.GameObjects.Sprite(new Phaser.Scene(), 0, 0, "test");
+    const mockSprite = new Phaser.GameObjects.Sprite(
+      new Phaser.Scene(),
+      0,
+      0,
+      "test",
+    );
     mockSpriteComponent = new SpriteComponent(mockSprite);
 
     mockEntity.add("position", mockPositionComponent);
@@ -36,7 +40,9 @@ describe("RenderSystem", () => {
     const newMockEntity = new Entity();
     newMockEntity.add("position", mockPositionComponent);
 
-    expect(() => renderSystem.update([newMockEntity])).toThrow("Error: Missing Component Dependency");
+    expect(() => renderSystem.update([newMockEntity])).toThrow(
+      "Error: Missing Component Dependency",
+    );
   });
 
   it("should throw error if position component is missing", () => {
