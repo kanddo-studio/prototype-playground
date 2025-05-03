@@ -5,7 +5,10 @@ import { Entity, PositionComponent, System } from "kanji-ecs";
 import { CameraComponent } from "../../components/CameraComponent";
 
 export class CameraDragNDropSystem implements System {
-  constructor(private scene: Phaser.Scene, private entity: Entity) {
+  constructor(
+    private scene: Phaser.Scene,
+    private entity: Entity,
+  ) {
     this.scene.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
       const cameraComponent = this.entity.get<CameraComponent>("camera");
       if (!cameraComponent) {

@@ -54,7 +54,11 @@ export class GameScene extends Phaser.Scene {
     const velocityComponent = new VelocityComponent(400);
     const inputComponent = new InputComponent();
     const cameraComponent = new CameraComponent();
-    const physicsComponent = new PhysicsComponent(sprite, positionComponent.x, positionComponent.y);
+    const physicsComponent = new PhysicsComponent(
+      sprite,
+      positionComponent.x,
+      positionComponent.y,
+    );
 
     // Add Components to Player
     this.player.add("velocity", velocityComponent);
