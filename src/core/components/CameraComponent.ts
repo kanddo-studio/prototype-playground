@@ -1,4 +1,6 @@
-export class CameraComponent {
+import { Component } from "kanji-ecs";
+
+export class CameraComponent implements Component {
   constructor(
     public zoom: number = 1,
     public minZoom: number = 0.5,

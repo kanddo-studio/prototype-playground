@@ -1,10 +1,10 @@
 import Phaser from "phaser";
 
-import { Entity, PositionComponent } from "kanji-ecs";
+import { Entity, PositionComponent, System } from "kanji-ecs";
 
 import { CameraComponent } from "../../components/CameraComponent";
 
-export class CameraSystem {
+export class CameraSystem implements System {
   constructor(
     private scene: Phaser.Scene,
     private entity: Entity,

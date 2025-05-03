@@ -21,28 +21,22 @@ export class KeyboardSystem implements System {
         throw new Error("Error: Missing Component Dependency");
       }
 
+      inputComponent.keys.clear();
+
       if (this.cursors.left?.isDown) {
         inputComponent.keys.add("ArrowLeft");
-      } else {
-        inputComponent.keys.delete("ArrowLeft");
       }
 
       if (this.cursors.right?.isDown) {
         inputComponent.keys.add("ArrowRight");
-      } else {
-        inputComponent.keys.delete("ArrowRight");
       }
 
       if (this.cursors.up?.isDown) {
         inputComponent.keys.add("ArrowUp");
-      } else {
-        inputComponent.keys.delete("ArrowUp");
       }
 
       if (this.cursors.down?.isDown) {
         inputComponent.keys.add("ArrowDown");
-      } else {
-        inputComponent.keys.delete("ArrowDown");
       }
     });
   }

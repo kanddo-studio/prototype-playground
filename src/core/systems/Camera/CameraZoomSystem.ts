@@ -1,10 +1,10 @@
 import Phaser from "phaser";
 
-import { Entity } from "kanji-ecs";
+import { Entity, System } from "kanji-ecs";
 
 import { CameraComponent } from "../../components/CameraComponent";
 
-export class CameraZoomSystem {
+export class CameraZoomSystem implements System {
   constructor(
     private scene: Phaser.Scene,
     private entity: Entity,
@@ -42,4 +42,5 @@ export class CameraZoomSystem {
       },
     );
   }
+  update(): void {}
 }
