@@ -22,7 +22,7 @@ const config: JestConfigWithTsJest = {
   coveragePathIgnorePatterns: [
     "/node_modules/",
     "<rootDir>/src/core/scenes/",
-    "<rootDir>/src/core/factories/"
+    "<rootDir>/src/core/factories/",
   ],
 };
 
