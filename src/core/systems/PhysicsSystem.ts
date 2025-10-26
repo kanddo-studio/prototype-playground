@@ -14,22 +14,27 @@ export class PhysicsSystem implements System {
       }
 
       const body = physicsComponent.body;
+      let velocityX = 0;
+      let velocityY = 0;
 
       if (inputComponent.keys.has("ArrowLeft")) {
-        body.setVelocityX(-velocityComponent.speed);
+        velocityX = -velocityComponent.speed;
       } else if (inputComponent.keys.has("ArrowRight")) {
-        body.setVelocityX(velocityComponent.speed);
-      } else {
-        body.setVelocityX(0);
+        velocityX = velocityComponent.speed;
       }
 
       if (inputComponent.keys.has("ArrowUp")) {
-        body.setVelocityY(-velocityComponent.speed);
+        velocityY = -velocityComponent.speed;
       } else if (inputComponent.keys.has("ArrowDown")) {
-        body.setVelocityY(velocityComponent.speed);
-      } else {
-        body.setVelocityY(0);
+        velocityY = velocityComponent.speed;
       }
+
+      if (velocityX !== 0 && velocityY !== 0) {
+        velocityX *= Math.SQRT1_2;
+        velocityY *= Math.SQRT1_2;
+      }
+
+      body.setVelocity(velocityX, velocityY);
     });
   }
 }

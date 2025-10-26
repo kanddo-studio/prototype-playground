@@ -2,7 +2,6 @@ import type { Entity } from "kanji-ecs/core";
 import type { InputComponent, VelocityComponent } from "kanji-ecs";
 
 import { PhysicsComponent } from "../../../core/components/PhysicsComponent";
-
 import { PhysicsSystem } from "../../../core/systems/PhysicsSystem";
 
 describe("PhysicsSystem", () => {
@@ -10,35 +9,25 @@ describe("PhysicsSystem", () => {
   let mockEntity: Entity;
   let inputComponent: InputComponent;
   let velocityComponent: VelocityComponent;
-  let setVelocityX: jest.Mock;
-  let setVelocityY: jest.Mock;
+  let setVelocity: jest.Mock;
 
   beforeEach(() => {
-    setVelocityX = jest.fn();
-    setVelocityY = jest.fn();
+    setVelocity = jest.fn();
 
-    inputComponent = {
-      keys: new Set<string>(),
-    };
+    inputComponent = { keys: new Set<string>() };
+    velocityComponent = { speed: 200 };
 
-    velocityComponent = {
-      speed: 200,
-    };
-
-    const mockBody = {
-      setVelocityX,
-      setVelocityY,
-    } as Partial<Body>;
+    const mockBody = { setVelocity } as Partial<Body>;
 
     const physicsComponent = {
       body: mockBody,
     } as unknown as PhysicsComponent;
 
     mockEntity = {
-      get: jest.fn((componentName: string) => {
-        if (componentName === "input") return inputComponent;
-        if (componentName === "velocity") return velocityComponent;
-        if (componentName === "physics") return physicsComponent;
+      get: jest.fn((name: string) => {
+        if (name === "input") return inputComponent;
+        if (name === "velocity") return velocityComponent;
+        if (name === "physics") return physicsComponent;
         return undefined;
       }),
     } as unknown as Entity;
@@ -51,8 +40,7 @@ describe("PhysicsSystem", () => {
 
     physicsSystem.update([mockEntity]);
 
-    expect(setVelocityX).toHaveBeenCalledWith(-200);
-    expect(setVelocityY).toHaveBeenCalledWith(0);
+    expect(setVelocity).toHaveBeenCalledWith(-200, 0);
   });
 
   it("should move right", () => {
@@ -60,8 +48,7 @@ describe("PhysicsSystem", () => {
 
     physicsSystem.update([mockEntity]);
 
-    expect(setVelocityX).toHaveBeenCalledWith(200);
-    expect(setVelocityY).toHaveBeenCalledWith(0);
+    expect(setVelocity).toHaveBeenCalledWith(200, 0);
   });
 
   it("should move up", () => {
@@ -69,8 +56,7 @@ describe("PhysicsSystem", () => {
 
     physicsSystem.update([mockEntity]);
 
-    expect(setVelocityY).toHaveBeenCalledWith(-200);
-    expect(setVelocityX).toHaveBeenCalledWith(0);
+    expect(setVelocity).toHaveBeenCalledWith(0, -200);
   });
 
   it("should move down", () => {
@@ -78,15 +64,23 @@ describe("PhysicsSystem", () => {
 
     physicsSystem.update([mockEntity]);
 
-    expect(setVelocityY).toHaveBeenCalledWith(200);
-    expect(setVelocityX).toHaveBeenCalledWith(0);
+    expect(setVelocity).toHaveBeenCalledWith(0, 200);
   });
 
   it("should stop when no keys are pressed", () => {
     physicsSystem.update([mockEntity]);
 
-    expect(setVelocityX).toHaveBeenCalledWith(0);
-    expect(setVelocityY).toHaveBeenCalledWith(0);
+    expect(setVelocity).toHaveBeenCalledWith(0, 0);
+  });
+
+  it("should normalize diagonal movement", () => {
+    inputComponent.keys.add("ArrowRight");
+    inputComponent.keys.add("ArrowDown");
+
+    physicsSystem.update([mockEntity]);
+
+    const n = Math.SQRT1_2; // ~0.7071
+    expect(setVelocity).toHaveBeenCalledWith(200 * n, 200 * n);
   });
 
   it("should throw if any component is missing", () => {
@@ -95,7 +89,7 @@ describe("PhysicsSystem", () => {
     } as unknown as Entity;
 
     expect(() => physicsSystem.update([faultyEntity])).toThrow(
-      "Error: Missing Component Dependency",
+      "Error: Missing Component Dependency"
     );
   });
 });

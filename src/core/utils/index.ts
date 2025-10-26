@@ -1,1 +1,1 @@
-export { createGrid } from "./createGrid";
+export { GridHelper } from "./GridHelper";
