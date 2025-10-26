@@ -3,7 +3,6 @@ import { Entity } from "../components/Entity";
 import { InputComponent } from "../components/Input";
 import { System } from "../components/System";
 
-
 export class KeyboardSystem implements System {
   cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
 

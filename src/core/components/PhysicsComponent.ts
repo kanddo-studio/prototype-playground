@@ -1,7 +1,6 @@
 import Phaser from "phaser";
 import { Component } from "./Component";
 
-
 export class PhysicsComponent implements Component {
   body!: Phaser.Physics.Arcade.Body;
 

@@ -3,7 +3,6 @@ import { InputComponent } from "../components/Input";
 import { PhysicsComponent } from "../components/PhysicsComponent";
 import { System } from "../components/System";
 
-
 export class AnimationSystem implements System {
   private lastDirection: string = "right";
 

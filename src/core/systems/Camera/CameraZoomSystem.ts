@@ -5,7 +5,10 @@ import { System } from "../../components/System";
 import { Entity } from "../../components/Entity";
 
 export class CameraZoomSystem implements System {
-  constructor(private scene: Phaser.Scene, private entity: Entity) {
+  constructor(
+    private scene: Phaser.Scene,
+    private entity: Entity,
+  ) {
     this.scene.input.on(
       "wheel",
       (
@@ -38,7 +41,6 @@ export class CameraZoomSystem implements System {
         scene.cameras.main.setZoom(cameraComponent.zoom);
       },
     );
-
   }
   update(): void {}
 }

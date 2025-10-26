@@ -1,4 +1,3 @@
-
 import { Entity } from "../../../core/components/Entity";
 import { InputComponent } from "../../../core/components/Input";
 import { PhysicsComponent } from "../../../core/components/PhysicsComponent";
