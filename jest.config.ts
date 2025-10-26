@@ -19,7 +19,11 @@ const config: JestConfigWithTsJest = {
     "!src/**/*.d.ts",
     "!src/**/index.ts",
   ],
-  coveragePathIgnorePatterns: ["/node_modules/", "<rootDir>/src/core/scenes/"],
+  coveragePathIgnorePatterns: [
+    "/node_modules/",
+    "<rootDir>/src/core/scenes/",
+    "<rootDir>/src/core/factories/"
+  ],
 };
 
 export default config;

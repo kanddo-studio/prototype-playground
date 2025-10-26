@@ -7,6 +7,7 @@ import { KeyboardSystem } from "../systems/KeyboardSystem";
 import { CameraSystem } from "../systems/Camera/CameraSystem";
 import { CameraZoomSystem } from "../systems/Camera/CameraZoomSystem";
 import { CameraDragNDropSystem } from "../systems/Camera/CameraDragNDropSystem";
+import { CameraRightStickSystem } from "../systems/Camera/CameraRightStickSystem";
 import { PhysicsSystem } from "../systems/PhysicsSystem";
 import { GamepadSystem } from "../systems/GamepadSystem";
 import { AnimationSystem } from "../systems/AnimationSystem";
@@ -22,6 +23,7 @@ export class GameScene extends Phaser.Scene {
   cameraSystem!: CameraSystem;
   cameraZoomSystem!: CameraZoomSystem;
   cameraDragNDropSystem!: CameraDragNDropSystem;
+  cameraRightStickSystem!: CameraRightStickSystem;
   physicsSystem!: PhysicsSystem;
   gamepadSystem!: GamepadSystem;
   animationSystem!: AnimationSystem;
@@ -47,6 +49,7 @@ export class GameScene extends Phaser.Scene {
     this.cameraSystem = new CameraSystem(this, this.player);
     this.cameraZoomSystem = new CameraZoomSystem(this, this.player);
     this.cameraDragNDropSystem = new CameraDragNDropSystem(this, this.player);
+    this.cameraRightStickSystem = new CameraRightStickSystem(this);
   }
 
   update(_time: number) {
@@ -56,5 +59,6 @@ export class GameScene extends Phaser.Scene {
     this.physicsSystem.update([this.player]);
     this.animationSystem.update([this.player]);
     this.cameraSystem.update();
+    this.cameraRightStickSystem.update([this.player], this);
   }
 }

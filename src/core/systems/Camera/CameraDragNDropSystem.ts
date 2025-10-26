@@ -56,10 +56,10 @@ export class CameraDragNDropSystem implements System {
 
       const camera = scene.cameras.main;
 
-      const dragX = (pointer.worldX - cameraComponent.dragStartX) * 4;
-      const dragY = (pointer.worldY - cameraComponent.dragStartY) * 4;
+      const dragX = (pointer.worldX - cameraComponent.dragStartX) * 2;
+      const dragY = (pointer.worldY - cameraComponent.dragStartY) * 2;
 
-      const smoothFactor = 0.1;
+      const smoothFactor = 0.2;
       camera.scrollX -= (dragX * smoothFactor) / camera.zoom;
       camera.scrollY -= (dragY * smoothFactor) / camera.zoom;
 
