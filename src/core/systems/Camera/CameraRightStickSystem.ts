@@ -1,6 +1,6 @@
-import { Entity } from "kanji-ecs";
 import Phaser from "phaser";
 import { CameraComponent } from "../../components/CameraComponent";
+import { Entity } from "../../components/Entity";
 
 type Dir = "idle" | "up" | "down" | "left" | "right";
 

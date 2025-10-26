@@ -1,6 +1,8 @@
 import Phaser from "phaser";
+import { Entity } from "../components/Entity";
+import { InputComponent } from "../components/Input";
+import { System } from "../components/System";
 
-import { Entity, InputComponent, System } from "kanji-ecs";
 
 export class KeyboardSystem implements System {
   cursors?: Phaser.Types.Input.Keyboard.CursorKeys;

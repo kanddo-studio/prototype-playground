@@ -1,6 +1,8 @@
-import { InputComponent, VelocityComponent } from "kanji-ecs";
-import { Entity, System } from "kanji-ecs/core";
+import { Entity } from "../components/Entity";
+import { InputComponent } from "../components/Input";
 import { PhysicsComponent } from "../components/PhysicsComponent";
+import { System } from "../components/System";
+import { VelocityComponent } from "../components/Velocity";
 
 export class PhysicsSystem implements System {
   update(entities: Entity[]) {

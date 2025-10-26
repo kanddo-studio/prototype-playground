@@ -1,4 +1,4 @@
-import { Component } from "kanji-ecs";
+import { Component } from "./Component";
 
 export class CameraComponent implements Component {
   constructor(

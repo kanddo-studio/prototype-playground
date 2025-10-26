@@ -1,6 +1,8 @@
-import { Entity, System } from "kanji-ecs/core";
+import { Entity } from "../components/Entity";
+import { InputComponent } from "../components/Input";
 import { PhysicsComponent } from "../components/PhysicsComponent";
-import { InputComponent } from "kanji-ecs/components";
+import { System } from "../components/System";
+
 
 export class AnimationSystem implements System {
   private lastDirection: string = "right";

@@ -1,5 +1,7 @@
 import Phaser from "phaser";
-import { Entity, InputComponent, System } from "kanji-ecs";
+import { System } from "../components/System";
+import { InputComponent } from "../components/Input";
+import { Entity } from "../components/Entity";
 
 export class GamepadSystem implements System {
   pad?: Phaser.Input.Gamepad.Gamepad;

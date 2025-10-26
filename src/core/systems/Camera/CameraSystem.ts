@@ -1,8 +1,9 @@
 import Phaser from "phaser";
 
-import { Entity, PositionComponent, System } from "kanji-ecs";
-
 import { CameraComponent } from "../../components/CameraComponent";
+import { System } from "../../components/System";
+import { Entity } from "../../components/Entity";
+import { PositionComponent } from "../../components/Position";
 
 export class CameraSystem implements System {
   constructor(

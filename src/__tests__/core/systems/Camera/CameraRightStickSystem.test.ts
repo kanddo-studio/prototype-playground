@@ -1,7 +1,7 @@
 import Phaser from "phaser";
-import { Entity } from "kanji-ecs";
 import { CameraComponent } from "../../../../core/components/CameraComponent";
 import { CameraRightStickSystem } from "../../../../core/systems/Camera/CameraRightStickSystem";
+import { Entity } from "../../../../core/components/Entity";
 
 describe("CameraRightStickSystem", () => {
   let mockScene: Phaser.Scene;

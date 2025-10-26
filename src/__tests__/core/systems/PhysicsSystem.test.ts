@@ -1,7 +1,8 @@
-import type { Entity } from "kanji-ecs/core";
-import type { InputComponent, VelocityComponent } from "kanji-ecs";
 
+import { Entity } from "../../../core/components/Entity";
+import { InputComponent } from "../../../core/components/Input";
 import { PhysicsComponent } from "../../../core/components/PhysicsComponent";
+import { VelocityComponent } from "../../../core/components/Velocity";
 import { PhysicsSystem } from "../../../core/systems/PhysicsSystem";
 
 describe("PhysicsSystem", () => {

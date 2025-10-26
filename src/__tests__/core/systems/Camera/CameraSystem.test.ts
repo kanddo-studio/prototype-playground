@@ -1,9 +1,10 @@
 import Phaser from "phaser";
 
-import { Entity, PositionComponent } from "kanji-ecs";
 
 import { CameraComponent } from "../../../../core/components/CameraComponent";
 import { CameraSystem } from "../../../../core/systems/Camera/CameraSystem";
+import { Entity } from "../../../../core/components/Entity";
+import { PositionComponent } from "../../../../core/components/Position";
 
 describe("CameraSystem", () => {
   let mockScene: Phaser.Scene;

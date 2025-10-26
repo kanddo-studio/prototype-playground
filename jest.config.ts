@@ -7,7 +7,7 @@ const config: JestConfigWithTsJest = {
     "^.+\\.(ts|tsx)$": "ts-jest",
     "^.+\\.m?js$": "babel-jest",
   },
-  transformIgnorePatterns: ["/node_modules/(?!kanji-ecs).+\\.js$"],
+  // transformIgnorePatterns: ["/node_modules/(?!kanji-ecs).+\\.js$"],
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   testMatch: ["**/__tests__/**/*.test.ts", "**/?(*.)+(spec|test).ts"],
   clearMocks: true,

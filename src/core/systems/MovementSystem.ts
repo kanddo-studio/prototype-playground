@@ -1,8 +1,7 @@
-import { Entity, System } from "kanji-ecs/core";
-
-import { PositionComponent } from "kanji-ecs/components";
-
+import { Entity } from "../components/Entity";
 import { PhysicsComponent } from "../components/PhysicsComponent";
+import { PositionComponent } from "../components/Position";
+import { System } from "../components/System";
 
 export class MovementSystem implements System {
   update(entities: Entity[]) {

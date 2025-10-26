@@ -1,7 +1,8 @@
 import Phaser from "phaser";
 
-import { Entity, InputComponent } from "kanji-ecs";
 import { KeyboardSystem } from "../../../core/systems/KeyboardSystem";
+import { Entity } from "../../../core/components/Entity";
+import { InputComponent } from "../../../core/components/Input";
 
 describe("KeyboardSystem", () => {
   let mockScene: Phaser.Scene;

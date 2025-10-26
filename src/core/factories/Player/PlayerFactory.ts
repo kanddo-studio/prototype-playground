@@ -1,13 +1,12 @@
 import Phaser from "phaser";
-import { Entity } from "kanji-ecs/core";
-import {
-  PositionComponent,
-  VelocityComponent,
-  InputComponent,
-} from "kanji-ecs/components";
+
 import { PhysicsComponent } from "../../components/PhysicsComponent";
 import { PlayerAnimationFactory } from "./AnimationFactory";
 import { CameraComponent } from "../../components/CameraComponent";
+import { Entity } from "../../components/Entity";
+import { PositionComponent } from "../../components/Position";
+import { VelocityComponent } from "../../components/Velocity";
+import { InputComponent } from "../../components/Input";
 
 export class PlayerFactory {
   static preload(scene: Phaser.Scene) {

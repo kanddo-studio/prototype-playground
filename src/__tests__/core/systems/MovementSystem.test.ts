@@ -1,8 +1,7 @@
-import type { Entity } from "kanji-ecs/core";
-import { PositionComponent } from "kanji-ecs/components";
-
 import { MovementSystem } from "../../../core/systems/MovementSystem";
 import { PhysicsComponent } from "../../../core/components/PhysicsComponent";
+import { PositionComponent } from "../../../core/components/Position";
+import { Entity } from "../../../core/components/Entity";
 
 describe("MovementSystem", () => {
   let movementSystem: MovementSystem;

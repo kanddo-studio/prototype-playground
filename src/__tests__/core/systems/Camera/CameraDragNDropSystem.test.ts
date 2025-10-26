@@ -1,9 +1,9 @@
 import Phaser from "phaser";
 
-import { Entity, PositionComponent } from "kanji-ecs";
-
 import { CameraDragNDropSystem } from "../../../../core/systems/Camera/CameraDragNDropSystem";
 import { CameraComponent } from "../../../../core/components/CameraComponent";
+import { Entity } from "../../../../core/components/Entity";
+import { PositionComponent } from "../../../../core/components/Position";
 
 describe("CameraDragNDropSystem", () => {
   let mockScene: Phaser.Scene;

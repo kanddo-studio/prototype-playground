@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-import { Entity } from "kanji-ecs/core";
+import { Entity } from "../components/Entity";
 
 import { MovementSystem } from "../systems/MovementSystem";
 import { KeyboardSystem } from "../systems/KeyboardSystem";
