@@ -1,45 +1,59 @@
 import Phaser from "phaser";
-import { Entity } from "../components/Entity";
 import { InputComponent } from "../components/Input";
-import { System } from "../components/System";
+import { System, SystemUpdateProps } from "../components/System";
+import { MissingDependencyError } from "../errors/MissingDependencyError";
 
+/**
+ * System responsible for handling keyboard input and updating the InputComponent accordingly.
+ */
 export class KeyboardSystem implements System {
-  cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
+  private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
 
+  /**
+   * Creates a new KeyboardSystem.
+   * @param scene - The Phaser scene to bind keyboard input to.
+   * @throws MissingDependencyError if keyboard input is not available in the scene.
+   */
   constructor(scene: Phaser.Scene) {
-    if (scene.input.keyboard) {
-      this.cursors = scene.input.keyboard.createCursorKeys();
-      return;
+    if (!scene.input.keyboard) {
+      throw new MissingDependencyError(
+        "Keyboard input is not available in the scene.",
+      );
     }
-    throw new Error("Error: Missing Keyboard Input in the Scene");
+    this.cursors = scene.input.keyboard.createCursorKeys();
   }
 
-  update(entities: Entity[]) {
+  /**
+   * Updates the input state of each entity based on keyboard keys pressed.
+   * @param entities - The list of entities to update.
+   * @throws MissingDependencyError if required components or keyboard input are missing.
+   */
+  update({ entities }: SystemUpdateProps): void {
+    if (!this.cursors) {
+      throw new MissingDependencyError("Keyboard cursors are not initialized.");
+    }
+
     entities.forEach((entity) => {
       const inputComponent = entity.get<InputComponent>("input");
-
       if (!inputComponent) {
-        throw new Error("Error: Missing Component Dependency");
+        throw new MissingDependencyError(
+          `Entity '${entity.id}' is missing 'input' component.`,
+        );
       }
 
-      if (!this.cursors) {
-        throw new Error("Error: Missing Keyboard");
-      }
-
+      // Clear previous keys pressed
       inputComponent.keys.clear();
 
+      // Check each cursor key and add to input keys set if pressed
       if (this.cursors.left?.isDown) {
         inputComponent.keys.add("ArrowLeft");
       }
-
       if (this.cursors.right?.isDown) {
         inputComponent.keys.add("ArrowRight");
       }
-
       if (this.cursors.up?.isDown) {
         inputComponent.keys.add("ArrowUp");
       }
-
       if (this.cursors.down?.isDown) {
         inputComponent.keys.add("ArrowDown");
       }

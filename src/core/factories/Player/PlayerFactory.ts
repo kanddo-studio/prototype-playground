@@ -1,40 +1,61 @@
 import Phaser from "phaser";
 
-import { PhysicsComponent } from "../../components/PhysicsComponent";
-import { PlayerAnimationFactory } from "./AnimationFactory";
-import { CameraComponent } from "../../components/CameraComponent";
 import { Entity } from "../../components/Entity";
+
+import { PhysicsComponent } from "../../components/Physics";
+import { PlayerAnimationFactory } from "./AnimationFactory";
+import { CameraComponent } from "../../components/Camera";
 import { PositionComponent } from "../../components/Position";
 import { VelocityComponent } from "../../components/Velocity";
 import { InputComponent } from "../../components/Input";
+import { DesiredVelocityComponent } from "../../components/DesiredVelocity";
 
+/**
+ * Factory class responsible for creating and initializing the player entity
+ * with all necessary components and animations.
+ */
 export class PlayerFactory {
-  static preload(scene: Phaser.Scene) {
+  /**
+   * Preloads all assets required for the player, such as spritesheets.
+   * @param scene - The Phaser scene where assets will be loaded.
+   */
+  static preload(scene: Phaser.Scene): void {
     PlayerAnimationFactory.loadSpritesheets(scene);
   }
 
+  /**
+   * Creates a new player entity with all components properly initialized.
+   * @param scene - The Phaser scene where the player will be created.
+   * @returns The fully constructed player entity.
+   */
   static create(scene: Phaser.Scene): Entity {
+    // Create animations and sprite for the player
     PlayerAnimationFactory.createAnimations(scene);
     const sprite = PlayerAnimationFactory.createSprite(scene);
+
+    // Configure the physics body size and offset for accurate collision
     sprite.body?.setSize(16, 16);
     sprite.body?.setOffset(32, 32);
 
-    const player = new Entity();
+    // Instantiate the player entity with a unique ID
+    const player = new Entity("player");
 
-    // Components
+    // Initialize components with default or configured values
     const positionComponent = new PositionComponent(0, 0);
-    const velocityComponent = new VelocityComponent(400);
+    const velocityComponent = new VelocityComponent(400); // speed = 400
+    const desiredVelocityComponent = new DesiredVelocityComponent();
     const inputComponent = new InputComponent();
-    const cameraComponent = new CameraComponent();
+    const cameraComponent = new CameraComponent({ target: sprite });
     const physicsComponent = new PhysicsComponent(
       sprite,
       positionComponent.x,
       positionComponent.y,
     );
 
-    // Add Components to Player
-    player.add("velocity", velocityComponent);
+    // Add components to the player entity with consistent keys
     player.add("position", positionComponent);
+    player.add("velocity", velocityComponent);
+    player.add("desiredVelocity", desiredVelocityComponent);
     player.add("input", inputComponent);
     player.add("camera", cameraComponent);
     player.add("physics", physicsComponent);

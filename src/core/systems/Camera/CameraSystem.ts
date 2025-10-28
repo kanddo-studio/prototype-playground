@@ -1,9 +1,8 @@
 import Phaser from "phaser";
 
-import { CameraComponent } from "../../components/CameraComponent";
+import { CameraComponent } from "../../components/Camera";
 import { System } from "../../components/System";
 import { Entity } from "../../components/Entity";
-import { PositionComponent } from "../../components/Position";
 
 export class CameraSystem implements System {
   constructor(
@@ -13,15 +12,19 @@ export class CameraSystem implements System {
 
   update() {
     const cameraComponent = this.entity.get<CameraComponent>("camera");
-    const positionComponent = this.entity.get<PositionComponent>("position");
 
-    if (!cameraComponent || !positionComponent) {
-      throw new Error("Error: Missing Component Dependency");
+    if (!cameraComponent) {
+      throw new Error("Error: Missing CameraComponent");
+    }
+
+    if (!cameraComponent.target) {
+      throw new Error("Error: CameraComponent missing target GameObject");
     }
 
     if (!cameraComponent.isDragging && cameraComponent.isFixed) {
-      return this.scene.cameras.main.startFollow(positionComponent);
+      return this.scene.cameras.main.startFollow(cameraComponent.target);
     }
+
     return this.scene.cameras.main.stopFollow();
   }
 }

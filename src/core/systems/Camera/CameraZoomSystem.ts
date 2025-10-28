@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-import { CameraComponent } from "../../components/CameraComponent";
+import { CameraComponent } from "../../components/Camera";
 import { System } from "../../components/System";
 import { Entity } from "../../components/Entity";
 

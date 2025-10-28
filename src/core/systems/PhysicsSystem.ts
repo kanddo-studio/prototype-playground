@@ -1,42 +1,70 @@
+import { Component } from "../components/Component";
+import { DesiredVelocityComponent } from "../components/DesiredVelocity";
 import { Entity } from "../components/Entity";
-import { InputComponent } from "../components/Input";
-import { PhysicsComponent } from "../components/PhysicsComponent";
-import { System } from "../components/System";
-import { VelocityComponent } from "../components/Velocity";
+import { PhysicsComponent } from "../components/Physics";
+import { System, SystemUpdateProps } from "../components/System";
+import { MissingComponentError } from "../errors/MissingComponentError";
 
+/**
+ * System responsible for applying desired velocity to the physics body.
+ *
+ * This system transfers the calculated desired velocity from the DesiredVelocityComponent
+ * to the actual physics body in the PhysicsComponent. It acts as a bridge between
+ * high-level movement intentions and the low-level physics engine.
+ *
+ * The system ensures that:
+ * - Entities with physics bodies move according to their desired velocity
+ * - Component dependencies are properly validated
+ * - Physics bodies are updated with the correct velocity values
+ */
 export class PhysicsSystem implements System {
-  update(entities: Entity[]) {
+  /**
+   * Updates physics bodies with desired velocities for all entities.
+   * @param entities - The list of entities to process.
+   * @throws MissingComponentError if any required component is missing.
+   */
+  update({ entities }: SystemUpdateProps): void {
     entities.forEach((entity) => {
-      const inputComponent = entity.get<InputComponent>("input");
-      const velocityComponent = entity.get<VelocityComponent>("velocity");
-      const physicsComponent = entity.get<PhysicsComponent>("physics");
+      // Validate and retrieve required components
+      const desiredVelocity = this.getComponent<DesiredVelocityComponent>(
+        entity,
+        "desiredVelocity",
+      );
 
-      if (!inputComponent || !velocityComponent || !physicsComponent) {
-        throw new Error("Error: Missing Component Dependency");
-      }
+      const physics = this.getComponent<PhysicsComponent>(entity, "physics");
 
-      const body = physicsComponent.body;
-      let velocityX = 0;
-      let velocityY = 0;
-
-      if (inputComponent.keys.has("ArrowLeft")) {
-        velocityX = -velocityComponent.speed;
-      } else if (inputComponent.keys.has("ArrowRight")) {
-        velocityX = velocityComponent.speed;
-      }
-
-      if (inputComponent.keys.has("ArrowUp")) {
-        velocityY = -velocityComponent.speed;
-      } else if (inputComponent.keys.has("ArrowDown")) {
-        velocityY = velocityComponent.speed;
-      }
-
-      if (velocityX !== 0 && velocityY !== 0) {
-        velocityX *= Math.SQRT1_2;
-        velocityY *= Math.SQRT1_2;
-      }
-
-      body.setVelocity(velocityX, velocityY);
+      // Apply desired velocity to physics body
+      this.applyVelocityToBody(physics, desiredVelocity);
     });
+  }
+
+  /**
+   * Validates entity has required component and returns it.
+   * @param entity - The entity to check.
+   * @param componentName - The name of the component to validate.
+   * @returns The component instance.
+   * @throws MissingComponentError if component is missing.
+   */
+  private getComponent<T extends Component>(
+    entity: Entity,
+    componentName: string,
+  ): T {
+    const component = entity.get<T>(componentName);
+    if (!component) {
+      throw new MissingComponentError(entity.id, componentName);
+    }
+    return component;
+  }
+
+  /**
+   * Applies desired velocity to the physics body.
+   * @param physics - The physics component containing the body.
+   * @param desiredVelocity - The desired velocity component.
+   */
+  private applyVelocityToBody(
+    physics: PhysicsComponent,
+    desiredVelocity: DesiredVelocityComponent,
+  ): void {
+    physics.body.setVelocity(desiredVelocity.x, desiredVelocity.y);
   }
 }
