@@ -35,7 +35,6 @@ export class CameraZoomSystem implements System {
 
       const cameraComponent = entity.get<CameraComponent>("camera");
 
-
       // mouse wheel component is optional; if absent, nothing to do
       if (!entity.has("mouseWheel")) {
         continue;

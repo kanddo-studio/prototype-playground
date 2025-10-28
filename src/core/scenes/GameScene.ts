@@ -33,7 +33,7 @@ export class GameScene extends Phaser.Scene {
   private cameraSystem!: CameraSystem;
   private cameraZoomSystem!: CameraZoomSystem;
   private cameraDragSystem!: CameraDragSystem;
-  private cameraRightStickSystem !: CameraRightStickSystem;
+  private cameraRightStickSystem!: CameraRightStickSystem;
 
   private playerSystems: Array<{ update: (props: SystemUpdateProps) => void }> =
     [];

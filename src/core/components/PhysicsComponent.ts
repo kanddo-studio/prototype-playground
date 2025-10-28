@@ -44,7 +44,7 @@ export class PhysicsComponent implements Component {
   constructor(
     body: Phaser.Physics.Arcade.Body,
     gameObject?: Phaser.Physics.Arcade.Sprite,
-    initialPosition?: { x: number; y: number }
+    initialPosition?: { x: number; y: number },
   ) {
     this.body = body;
     this.gameObject = gameObject;
