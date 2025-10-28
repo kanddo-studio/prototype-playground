@@ -41,15 +41,24 @@ export class CameraDragSystem implements System {
       if (!entity.has("camera")) continue;
       if (!entity.has("mouseDrag")) continue;
 
-      const cameraComponent = this.getComponent<CameraComponent>(entity, "camera");
-      const mouseComponent = this.getComponent<MouseDragComponent>(entity, "mouseDrag");
+      const cameraComponent = this.getComponent<CameraComponent>(
+        entity,
+        "camera",
+      );
+      const mouseComponent = this.getComponent<MouseDragComponent>(
+        entity,
+        "mouseDrag",
+      );
 
       if (!mouseComponent || !mouseComponent.enabled) continue;
 
       // pointer down: start dragging if not already dragging
       if (mouseComponent.isPointerDown && !cameraComponent.isDragging) {
         cameraComponent.setFixed(false);
-        cameraComponent.startDrag(mouseComponent.lastWorldX, mouseComponent.lastWorldY);
+        cameraComponent.startDrag(
+          mouseComponent.lastWorldX,
+          mouseComponent.lastWorldY,
+        );
         continue; // wait next frame for movement
       }
 
@@ -65,16 +74,21 @@ export class CameraDragSystem implements System {
         const camera = this.scene.cameras.main;
 
         const dragX =
-          (mouseComponent.lastWorldX - cameraComponent.dragStartX) * this.dragMultiplier;
+          (mouseComponent.lastWorldX - cameraComponent.dragStartX) *
+          this.dragMultiplier;
         const dragY =
-          (mouseComponent.lastWorldY - cameraComponent.dragStartY) * this.dragMultiplier;
+          (mouseComponent.lastWorldY - cameraComponent.dragStartY) *
+          this.dragMultiplier;
 
         // Apply smooth camera movement (preserve original scaling by zoom)
         camera.scrollX -= (dragX * this.smoothFactor) / cameraComponent.zoom;
         camera.scrollY -= (dragY * this.smoothFactor) / cameraComponent.zoom;
 
         // Update camera component's drag start to current pointer position
-        cameraComponent.startDrag(mouseComponent.lastWorldX, mouseComponent.lastWorldY);
+        cameraComponent.startDrag(
+          mouseComponent.lastWorldX,
+          mouseComponent.lastWorldY,
+        );
       }
     }
   }
