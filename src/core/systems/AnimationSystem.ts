@@ -1,8 +1,8 @@
-import { Component } from "../components/Component";
+import { Component } from "../components/_Component";
 import { Entity } from "../components/Entity";
 import { InputComponent } from "../components/Input";
 import { PhysicsComponent } from "../components/Physics";
-import { System, SystemUpdateProps } from "../components/System";
+import { System, SystemUpdateProps } from "./_System";
 import { MissingComponentError } from "../errors/MissingComponentError";
 
 /**
@@ -106,10 +106,10 @@ export class AnimationSystem implements System {
     sprite: Phaser.Physics.Arcade.Sprite,
     inputComponent: InputComponent,
   ): void {
-    const hasLeft = inputComponent.keys.has("ArrowLeft");
-    const hasRight = inputComponent.keys.has("ArrowRight");
-    const hasUp = inputComponent.keys.has("ArrowUp");
-    const hasDown = inputComponent.keys.has("ArrowDown");
+    const hasLeft = inputComponent.has("ArrowLeft");
+    const hasRight = inputComponent.has("ArrowRight");
+    const hasUp = inputComponent.has("ArrowUp");
+    const hasDown = inputComponent.has("ArrowDown");
 
     // Check if all directions are pressed
     const allDirectionsPressed = hasLeft && hasRight && hasUp && hasDown;

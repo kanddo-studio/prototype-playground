@@ -2,9 +2,9 @@ import { InputComponent } from "../components/Input";
 import { VelocityComponent } from "../components/Velocity";
 import { DesiredVelocityComponent } from "../components/DesiredVelocity";
 import { MissingComponentError } from "../errors/MissingComponentError";
-import { System, SystemUpdateProps } from "../components/System";
+import { System, SystemUpdateProps } from "./_System";
 import { Entity } from "../components/Entity";
-import { Component } from "../components/Component";
+import { Component } from "../components/_Component";
 
 /**
  * System responsible for calculating desired velocity based on input and speed.
@@ -81,10 +81,10 @@ export class MovementSystem implements System {
     let vy = 0;
 
     // Calculate base velocity from input
-    if (input.keys.has("ArrowLeft")) vx -= velocity.speed;
-    if (input.keys.has("ArrowRight")) vx += velocity.speed;
-    if (input.keys.has("ArrowUp")) vy -= velocity.speed;
-    if (input.keys.has("ArrowDown")) vy += velocity.speed;
+    if (input.has("ArrowLeft")) vx -= velocity.speed;
+    if (input.has("ArrowRight")) vx += velocity.speed;
+    if (input.has("ArrowUp")) vy -= velocity.speed;
+    if (input.has("ArrowDown")) vy += velocity.speed;
 
     // Normalize diagonal movement to maintain consistent speed
     return this.normalizeDiagonal(vx, vy);

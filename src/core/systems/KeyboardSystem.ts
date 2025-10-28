@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { InputComponent } from "../components/Input";
-import { System, SystemUpdateProps } from "../components/System";
+import { System, SystemUpdateProps } from "./_System";
 import { MissingDependencyError } from "../errors/MissingDependencyError";
 
 /**
@@ -42,20 +42,20 @@ export class KeyboardSystem implements System {
       }
 
       // Clear previous keys pressed
-      inputComponent.keys.clear();
+      inputComponent.clear();
 
       // Check each cursor key and add to input keys set if pressed
       if (this.cursors.left?.isDown) {
-        inputComponent.keys.add("ArrowLeft");
+        inputComponent.add("ArrowLeft");
       }
       if (this.cursors.right?.isDown) {
-        inputComponent.keys.add("ArrowRight");
+        inputComponent.add("ArrowRight");
       }
       if (this.cursors.up?.isDown) {
-        inputComponent.keys.add("ArrowUp");
+        inputComponent.add("ArrowUp");
       }
       if (this.cursors.down?.isDown) {
-        inputComponent.keys.add("ArrowDown");
+        inputComponent.add("ArrowDown");
       }
     });
   }

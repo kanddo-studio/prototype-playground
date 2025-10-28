@@ -15,7 +15,7 @@ import { AnimationSystem } from "../systems/AnimationSystem";
 import { PlayerFactory } from "../factories/Player/PlayerFactory";
 
 import * as Utils from "../utils";
-import { SystemUpdateProps } from "../components/System";
+import { SystemUpdateProps } from "../systems/_System";
 
 export class GameScene extends Phaser.Scene {
   player!: Entity;

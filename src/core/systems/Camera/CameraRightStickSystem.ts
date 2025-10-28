@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { CameraComponent } from "../../components/Camera";
-import { System, SystemUpdateProps } from "../../components/System";
+import { System, SystemUpdateProps } from "../_System";
 
 type Dir = "idle" | "up" | "down" | "left" | "right";
 

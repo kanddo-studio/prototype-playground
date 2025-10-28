@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { System, SystemUpdateProps } from "../components/System";
+import { System, SystemUpdateProps } from "./_System";
 import { InputComponent } from "../components/Input";
 import { MissingDependencyError } from "../errors/MissingDependencyError";
 
@@ -75,7 +75,7 @@ export class GamepadSystem implements System {
       }
 
       // Reset previous input state
-      inputComponent.keys.clear();
+      inputComponent.clear();
 
       // Process button inputs
       this.processButtonInputs(inputComponent);
@@ -95,7 +95,7 @@ export class GamepadSystem implements System {
     Object.entries(this.buttonKeyMap).forEach(([buttonIndex, key]) => {
       const button = this.pad!.buttons[parseInt(buttonIndex)];
       if (button?.value) {
-        inputComponent.keys.add(key);
+        inputComponent.add(key);
       }
     });
   }
@@ -113,16 +113,16 @@ export class GamepadSystem implements System {
   ): void {
     // Left stick horizontal movement
     if (xAxis < -this.axisThreshold) {
-      inputComponent.keys.add("ArrowLeft");
+      inputComponent.add("ArrowLeft");
     } else if (xAxis > this.axisThreshold) {
-      inputComponent.keys.add("ArrowRight");
+      inputComponent.add("ArrowRight");
     }
 
     // Left stick vertical movement
     if (yAxis < -this.axisThreshold) {
-      inputComponent.keys.add("ArrowUp");
+      inputComponent.add("ArrowUp");
     } else if (yAxis > this.axisThreshold) {
-      inputComponent.keys.add("ArrowDown");
+      inputComponent.add("ArrowDown");
     }
   }
 }

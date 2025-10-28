@@ -1,8 +1,8 @@
-import { Component } from "../components/Component";
+import { Component } from "../components/_Component";
 import { DesiredVelocityComponent } from "../components/DesiredVelocity";
 import { Entity } from "../components/Entity";
 import { PhysicsComponent } from "../components/Physics";
-import { System, SystemUpdateProps } from "../components/System";
+import { System, SystemUpdateProps } from "./_System";
 import { MissingComponentError } from "../errors/MissingComponentError";
 
 /**

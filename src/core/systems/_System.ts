@@ -1,4 +1,4 @@
-import { Entity } from "./Entity";
+import { Entity } from "../components/Entity";
 
 /**
  * Properties passed to the update method of a System.
