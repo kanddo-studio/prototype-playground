@@ -1,10 +1,6 @@
-// src/components/Velocity.ts
-import { Component } from "./_Component";
+import { Component } from "../_/_Component";
 
 /**
- * Component that stores an entity's base movement speed.
- *
- * Responsibilities:
  * - Serve as a plain data container for movement speed used by MovementSystem.
  * - Provide small, intention-revealing helpers (set, reset, clone).
  *

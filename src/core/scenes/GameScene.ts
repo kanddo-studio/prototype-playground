@@ -18,6 +18,7 @@ import * as Utils from "../utils";
 import { SystemUpdateProps } from "../systems/_/_System";
 import { MouseWhellSystem } from "../systems/Device/MouseWhellSystem";
 import { MousePointerSystem } from "../systems/Device/MousePointerSystem";
+import { EventBus } from "../../event/EventBus";
 
 export class GameScene extends Phaser.Scene {
   player!: Entity;
@@ -50,6 +51,11 @@ export class GameScene extends Phaser.Scene {
     Utils.GridHelper.create(this, 832, 640);
 
     this.player = PlayerFactory.create(this);
+
+    EventBus.emit("game:updateStats", {
+      health: 20,
+      score: 0,
+    });
 
     this.initSystems();
   }

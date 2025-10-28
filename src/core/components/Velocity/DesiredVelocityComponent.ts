@@ -1,4 +1,4 @@
-import { Component } from "./_Component";
+import { Component } from "../_/_Component";
 
 /**
  * Component to store the desired velocity calculated from input and movement logic.

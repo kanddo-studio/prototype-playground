@@ -10,7 +10,7 @@ export const config: Phaser.Types.Core.GameConfig = {
   height: 600,
   powerPreference: "high-performance",
   antialias: false,
-  parent: "app",
+  parent: "game-root",
   roundPixels: true,
   fps: {
     target: 60,
