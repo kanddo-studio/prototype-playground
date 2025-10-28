@@ -1,93 +1,65 @@
 import Phaser from "phaser";
-import { CameraComponent } from "../../components/Camera";
-import { System, SystemUpdateProps } from "../_System";
-import { Entity } from "../../components/Entity";
+
+import { System, SystemUpdateProps } from "../_/_System";
+import { MouseWheelComponent } from "../../components/Device/MouseWheelComponent";
+import { CameraComponent } from "../../components/CameraComponent";
 
 /**
- * System responsible for handling camera zoom based on mouse wheel input.
+ * CameraZoomSystem (refactored)
+ * - No longer registers input listeners.
+ * - Reads mouse wheel input from MouseWheelComponent attached to the same entity
+ *   and applies zoom changes to the CameraComponent.
  *
- * This system listens for mouse wheel events and adjusts the camera zoom level
- * stored in the CameraComponent, then applies it to the Phaser camera.
- *
- * Design notes:
- * - Listens for wheel events in constructor (one-time setup)
- * - Updates CameraComponent.zoom and applies to Phaser camera
- * - Uses zoom factor for smooth zoom increments
- * - Clamps zoom values between minZoom and maxZoom from component
+ * Behavior preserved:
+ * - If deltaY > 0 => zoom decreases by zoomFactor.
+ * - If deltaY < 0 => zoom increases by zoomFactor.
+ * - After applying, it applies the resulting zoom to the Phaser camera.
  */
 export class CameraZoomSystem implements System {
-  private readonly zoomFactor: number = 0.1;
-  private cameraEntity: Entity | null = null;
-
   /**
-   * Creates a new CameraZoomSystem and sets up mouse wheel listener.
-   * @param scene - The Phaser scene containing the camera to control.
+   * Create with a scene reference to apply camera changes.
+   * @param scene - Phaser.Scene instance with a main camera.
    */
-  constructor(private scene: Phaser.Scene) {
-    this.setupWheelListener();
-  }
+  constructor(private scene: Phaser.Scene) {}
 
   /**
-   * Sets up the mouse wheel event listener.
-   */
-  private setupWheelListener(): void {
-    this.scene.input.on(
-      "wheel",
-      (
-        _pointer: Phaser.Input.Pointer,
-        _gameObjects: Phaser.GameObjects.GameObject[],
-        _deltaX: number,
-        deltaY: number,
-        _deltaZ: number,
-      ) => {
-        if (this.cameraEntity) {
-          this.processWheelInput(this.cameraEntity, deltaY);
-        }
-      },
-    );
-  }
-
-  /**
-   * Updates the camera entity reference.
-   * @param entities - The list of entities to process (expects exactly one camera entity).
+   * Update is called with entities that match camera-related archetype.
+   * Each entity is expected to have a CameraComponent and optionally a MouseWheelComponent.
    */
   update({ entities }: SystemUpdateProps): void {
-    // Store reference to camera entity for use in event listener
-    if (entities.length > 0) {
-      this.cameraEntity = entities[0];
+    for (const entity of entities) {
+      // camera component is required for this system to operate
+      if (!entity.has("camera")) {
+        continue;
+      }
+
+      const cameraComponent = entity.get<CameraComponent>("camera");
+
+
+      // mouse wheel component is optional; if absent, nothing to do
+      if (!entity.has("mouseWheel")) {
+        continue;
+      }
+
+      const mouse = entity.get<MouseWheelComponent>("mouseWheel");
+
+      // consume accumulated wheel delta, if any
+      const delta = mouse.consumeDelta();
+      if (delta === 0) {
+        continue;
+      }
+
+      const zoomFactor = 0.1;
+
+      // compute zoom change preserving previous behavior:
+      // deltaY > 0 -> decrease zoom; deltaY < 0 -> increase
+      const change = -Math.sign(delta) * zoomFactor;
+
+      // apply to component (component should clamp within min/max itself)
+      cameraComponent.setZoom(cameraComponent.zoom + change);
+
+      // apply to Phaser camera
+      this.scene.cameras.main.setZoom(cameraComponent.zoom);
     }
-  }
-
-  /**
-   * Processes wheel input and updates camera zoom.
-   * @param entity - The entity containing the CameraComponent.
-   * @param deltaY - The mouse wheel delta value.
-   */
-  private processWheelInput(entity: Entity, deltaY: number): void {
-    const cameraComponent = this.validateAndGet(entity);
-
-    // Adjust zoom based on wheel direction
-    if (deltaY > 0) {
-      cameraComponent.setZoom(cameraComponent.zoom - this.zoomFactor);
-    } else if (deltaY < 0) {
-      cameraComponent.setZoom(cameraComponent.zoom + this.zoomFactor);
-    }
-
-    // Apply zoom to Phaser camera
-    this.scene.cameras.main.setZoom(cameraComponent.zoom);
-  }
-
-  /**
-   * Validates entity has required CameraComponent and returns it.
-   * @param entity - The entity to validate.
-   * @returns The validated CameraComponent.
-   * @throws Error if component is missing.
-   */
-  private validateAndGet(entity: Entity): CameraComponent {
-    const component = entity.get<CameraComponent>("camera");
-    if (!component) {
-      throw new Error("Error: Missing CameraComponent");
-    }
-    return component;
   }
 }

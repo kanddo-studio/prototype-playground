@@ -1,13 +1,17 @@
 import Phaser from "phaser";
 
-import { Entity } from "../../components/Entity";
+import { Entity } from "../../components/_/_Entity";
 
-import { PhysicsComponent } from "../../components/Physics";
-import { PlayerAnimationFactory } from "./AnimationFactory";
-import { CameraComponent } from "../../components/Camera";
-import { VelocityComponent } from "../../components/Velocity";
-import { InputComponent } from "../../components/Input";
-import { DesiredVelocityComponent } from "../../components/DesiredVelocity";
+import { PhysicsComponent } from "../../components/PhysicsComponent";
+import { PlayerAnimationFactory } from "./PlayerAnimationFactory";
+import { CameraComponent } from "../../components/CameraComponent";
+import { VelocityComponent } from "../../components/Velocity/VelocityComponent";
+import { InputComponent } from "../../components/Device/InputComponent";
+import { DesiredVelocityComponent } from "../../components/Velocity/DesiredVelocityComponent";
+import { MouseWheelComponent } from "../../components/Device/MouseWheelComponent";
+import { MouseDragComponent } from "../../components/Device/MouseDragComponent";
+import { RightStickComponent } from "../../components/Device/RightStickComponent";
+import { LeftStickComponent } from "../../components/Device/LeftStickComponent";
 
 /**
  * Factory class responsible for creating and initializing the player entity
@@ -44,6 +48,10 @@ export class PlayerFactory {
     const velocityComponent = new VelocityComponent(400);
     const desiredVelocityComponent = new DesiredVelocityComponent();
     const inputComponent = new InputComponent();
+    const leftStickComponent = new LeftStickComponent();
+    const rightStickComponent = new RightStickComponent();
+    const mouseDragComponent = new MouseDragComponent();
+    const mouseWheelComponent = new MouseWheelComponent();
     const cameraComponent = new CameraComponent({ target: sprite });
     const physicsComponent = new PhysicsComponent(body, sprite, {
       x: 100,
@@ -54,6 +62,10 @@ export class PlayerFactory {
     player.add("velocity", velocityComponent);
     player.add("desiredVelocity", desiredVelocityComponent);
     player.add("input", inputComponent);
+    player.add("leftStick", leftStickComponent);
+    player.add("rightStick", rightStickComponent);
+    player.add("mouseWheel", mouseWheelComponent);
+    player.add("mouseDrag", mouseDragComponent);
     player.add("camera", cameraComponent);
     player.add("physics", physicsComponent);
 

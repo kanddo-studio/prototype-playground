@@ -1,6 +1,6 @@
 // src/components/Physics.ts
 import Phaser from "phaser";
-import { Component } from "./_Component";
+import { Component } from "./_/_Component";
 
 /**
  * Component that stores references to a Phaser physics body and its game object.

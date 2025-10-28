@@ -1,7 +1,7 @@
 import Phaser from "phaser";
-import { InputComponent } from "../components/Input";
-import { System, SystemUpdateProps } from "./_System";
-import { MissingDependencyError } from "../errors/MissingDependencyError";
+import { InputComponent } from "../../components/Device/InputComponent";
+import { System, SystemUpdateProps } from "../_/_System";
+import { MissingDependencyError } from "../../errors/MissingDependencyError";
 
 /**
  * System responsible for handling keyboard input and updating the InputComponent accordingly.

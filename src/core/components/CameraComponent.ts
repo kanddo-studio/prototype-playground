@@ -1,5 +1,5 @@
 // src/components/Camera.ts
-import { Component } from "./_Component";
+import { Component } from "./_/_Component";
 import Phaser from "phaser";
 
 /**

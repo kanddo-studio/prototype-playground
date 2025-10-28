@@ -1,26 +1,30 @@
 import Phaser from "phaser";
 
-import { Entity } from "../components/Entity";
+import { Entity } from "../components/_/_Entity";
 
 import { MovementSystem } from "../systems/MovementSystem";
-import { KeyboardSystem } from "../systems/KeyboardSystem";
+import { KeyboardSystem } from "../systems/Device/KeyboardSystem";
 import { CameraSystem } from "../systems/Camera/CameraSystem";
 import { CameraZoomSystem } from "../systems/Camera/CameraZoomSystem";
-import { CameraDragNDropSystem } from "../systems/Camera/CameraDragNDropSystem";
+import { CameraDragSystem } from "../systems/Camera/CameraDragSystem";
 import { CameraRightStickSystem } from "../systems/Camera/CameraRightStickSystem";
 import { PhysicsSystem } from "../systems/PhysicsSystem";
-import { GamepadSystem } from "../systems/GamepadSystem";
+import { GamepadSystem } from "../systems/Device/GamepadSystem";
 import { AnimationSystem } from "../systems/AnimationSystem";
 
 import { PlayerFactory } from "../factories/Player/PlayerFactory";
 
 import * as Utils from "../utils";
-import { SystemUpdateProps } from "../systems/_System";
+import { SystemUpdateProps } from "../systems/_/_System";
+import { MouseSystem } from "../systems/Device/MouseSystem";
+import { PointerSystem } from "../systems/Device/PointerSystem";
 
 export class GameScene extends Phaser.Scene {
   player!: Entity;
 
   private keyboardSystem!: KeyboardSystem;
+  private mouseSystem!: MouseSystem;
+  private pointerSystem!: PointerSystem;
   private gamepadSystem!: GamepadSystem;
   private movementSystem!: MovementSystem;
   private physicsSystem!: PhysicsSystem;
@@ -28,8 +32,8 @@ export class GameScene extends Phaser.Scene {
 
   private cameraSystem!: CameraSystem;
   private cameraZoomSystem!: CameraZoomSystem;
-  private cameraDragNDropSystem!: CameraDragNDropSystem;
-  private cameraRightStickSystem!: CameraRightStickSystem;
+  private cameraDragSystem!: CameraDragSystem;
+  private cameraRightStickSystem !: CameraRightStickSystem;
 
   private playerSystems: Array<{ update: (props: SystemUpdateProps) => void }> =
     [];
@@ -52,6 +56,8 @@ export class GameScene extends Phaser.Scene {
 
   private initSystems() {
     this.keyboardSystem = new KeyboardSystem(this);
+    this.mouseSystem = new MouseSystem(this);
+    this.pointerSystem = new PointerSystem(this);
     this.gamepadSystem = new GamepadSystem(this);
     this.movementSystem = new MovementSystem();
     this.physicsSystem = new PhysicsSystem();
@@ -59,18 +65,20 @@ export class GameScene extends Phaser.Scene {
 
     this.cameraSystem = new CameraSystem(this);
     this.cameraZoomSystem = new CameraZoomSystem(this);
-    this.cameraDragNDropSystem = new CameraDragNDropSystem(this);
+    this.cameraDragSystem = new CameraDragSystem(this);
     this.cameraRightStickSystem = new CameraRightStickSystem(this);
 
     this.playerSystems = [
       this.keyboardSystem,
+      this.mouseSystem,
+      this.pointerSystem,
       this.gamepadSystem,
       this.movementSystem,
       this.physicsSystem,
       this.animationSystem,
       this.cameraSystem,
       this.cameraZoomSystem,
-      this.cameraDragNDropSystem,
+      this.cameraDragSystem,
       this.cameraRightStickSystem,
     ];
   }

@@ -1,10 +1,10 @@
-import { InputComponent } from "../components/Input";
-import { VelocityComponent } from "../components/Velocity";
-import { DesiredVelocityComponent } from "../components/DesiredVelocity";
+import { InputComponent } from "../components/Device/InputComponent";
+import { VelocityComponent } from "../components/Velocity/VelocityComponent";
+import { DesiredVelocityComponent } from "../components/Velocity/DesiredVelocityComponent";
 import { MissingComponentError } from "../errors/MissingComponentError";
-import { System, SystemUpdateProps } from "./_System";
-import { Entity } from "../components/Entity";
-import { Component } from "../components/_Component";
+import { System, SystemUpdateProps } from "./_/_System";
+import { Entity } from "../components/_/_Entity";
+import { Component } from "../components/_/_Component";
 
 /**
  * System responsible for calculating desired velocity based on input and speed.

@@ -64,4 +64,5 @@ export class Entity {
   remove(name: string): boolean {
     return this.components.delete(name);
   }
+  
 }

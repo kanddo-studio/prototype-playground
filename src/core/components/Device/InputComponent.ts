@@ -1,4 +1,4 @@
-import { Component } from "./_Component";
+import { Component } from "../_/_Component";
 
 /**
  * Component that stores the current input keys for an entity.

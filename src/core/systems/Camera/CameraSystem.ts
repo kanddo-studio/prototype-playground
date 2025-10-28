@@ -1,7 +1,7 @@
 import Phaser from "phaser";
-import { CameraComponent } from "../../components/Camera";
-import { System, SystemUpdateProps } from "../_System";
-import { Entity } from "../../components/Entity";
+import { CameraComponent } from "../../components/CameraComponent";
+import { System, SystemUpdateProps } from "../_/_System";
+import { Entity } from "../../components/_/_Entity";
 
 /**
  * System responsible for managing camera following behavior based on CameraComponent state.
