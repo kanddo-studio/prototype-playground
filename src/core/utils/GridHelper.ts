@@ -1,20 +1,20 @@
 import Phaser from "phaser";
 
 class GridHelper {
-  static create(scene: Phaser.Scene, worldSize: number) {
-    scene.physics.world.setBounds(0, 0, worldSize, worldSize);
+  static create(scene: Phaser.Scene, width: number, height: number) {
+    scene.physics.world.setBounds(0, 0, width, height);
 
     const graphics = scene.add.graphics();
     graphics.lineStyle(1, 0x444444);
 
-    for (let y = 0; y <= worldSize; y += 64) {
+    for (let y = 0; y <= height; y += 64) {
       graphics.moveTo(0, y);
-      graphics.lineTo(worldSize, y);
+      graphics.lineTo(width, y);
     }
 
-    for (let x = 0; x <= worldSize; x += 64) {
+    for (let x = 0; x <= width; x += 64) {
       graphics.moveTo(x, 0);
-      graphics.lineTo(x, worldSize);
+      graphics.lineTo(x, height);
     }
 
     graphics.strokePath();

@@ -18,13 +18,7 @@ export class AnimationSystem implements System {
       const gameObject = physicsComponent.body.gameObject;
       const sprite = gameObject as Phaser.Physics.Arcade.Sprite;
 
-      if (inputComponent.keys.has("ArrowUp")) {
-        this.lastDirection = "up";
-        sprite.anims.play("walk-up", true);
-      } else if (inputComponent.keys.has("ArrowDown")) {
-        this.lastDirection = "down";
-        sprite.anims.play("walk-down", true);
-      } else if (inputComponent.keys.has("ArrowLeft")) {
+      if (inputComponent.keys.has("ArrowLeft")) {
         this.lastDirection = "left";
         sprite.setFlipX(true);
         sprite.anims.play("walk", true);
@@ -32,13 +26,19 @@ export class AnimationSystem implements System {
         this.lastDirection = "right";
         sprite.setFlipX(false);
         sprite.anims.play("walk", true);
+      } else if (inputComponent.keys.has("ArrowUp")) {
+        this.lastDirection = "up";
+        sprite.anims.play("walk-up", true);
+      } else if (inputComponent.keys.has("ArrowDown")) {
+        this.lastDirection = "down";
+        sprite.anims.play("walk-down", true);
       } else {
-        if (this.lastDirection === "up") {
+        if (this.lastDirection === "left" || this.lastDirection === "right") {
+          sprite.anims.play("idle", true);
+        } else if (this.lastDirection === "up") {
           sprite.anims.play("idle-up", true);
         } else if (this.lastDirection === "down") {
           sprite.anims.play("idle-down", true);
-        } else {
-          sprite.anims.play("idle", true);
         }
       }
     });

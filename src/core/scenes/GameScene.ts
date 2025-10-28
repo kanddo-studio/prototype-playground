@@ -37,7 +37,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   create() {
-    Utils.GridHelper.create(this, 512);
+    Utils.GridHelper.create(this, 832, 640);
 
     this.player = PlayerFactory.create(this);
 

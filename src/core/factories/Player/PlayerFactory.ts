@@ -16,11 +16,13 @@ export class PlayerFactory {
   static create(scene: Phaser.Scene): Entity {
     PlayerAnimationFactory.createAnimations(scene);
     const sprite = PlayerAnimationFactory.createSprite(scene);
+    sprite.body?.setSize(16, 16);
+    sprite.body?.setOffset(32, 32);
 
     const player = new Entity();
 
     // Components
-    const positionComponent = new PositionComponent(200, 200);
+    const positionComponent = new PositionComponent(0, 0);
     const velocityComponent = new VelocityComponent(400);
     const inputComponent = new InputComponent();
     const cameraComponent = new CameraComponent();

@@ -14,8 +14,8 @@ export const config: Phaser.Types.Core.GameConfig = {
   roundPixels: true,
   fps: {
     target: 60,
+    min: 60,
     forceSetTimeOut: true,
-    min: 30,
   },
   scene: GameScene,
   input: {
@@ -30,8 +30,6 @@ export const config: Phaser.Types.Core.GameConfig = {
   },
 };
 
-export function init() {
-  new Phaser.Game(config);
+export function run() {
+  return new Phaser.Game(config);
 }
-
-init();

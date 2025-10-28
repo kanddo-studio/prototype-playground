@@ -19,7 +19,7 @@ export class PlayerAnimationFactory {
     { key: "idle-up", spritesheet: "player-idle", start: 8, end: 11 },
     { key: "walk", spritesheet: "player-walk", start: 0, end: 7 },
     { key: "walk-down", spritesheet: "player-walk", start: 8, end: 15 },
-    { key: "walk-up", spritesheet: "player-walk", start: 16, end: 24 },
+    { key: "walk-up", spritesheet: "player-walk", start: 16, end: 23 },
   ];
 
   static loadSpritesheets(scene: Phaser.Scene) {
@@ -45,8 +45,6 @@ export class PlayerAnimationFactory {
   static createSprite(scene: Phaser.Scene): Phaser.Physics.Arcade.Sprite {
     const sprite = scene.physics.add.sprite(0, 0, "player-idle", 0);
     sprite.setScale(4);
-    sprite.body.setSize(16, 16);
-    sprite.body.setOffset(32, 32);
     sprite.anims.play("idle");
     return sprite;
   }
