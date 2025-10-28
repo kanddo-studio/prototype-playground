@@ -47,7 +47,7 @@ export class CameraRightStickSystem implements System {
    * Updates the camera position based on gamepad right stick input.
    * @param entities - The list of entities to process.
    */
-  update({ entities }: SystemUpdateProps) {
+  update({ entities }: SystemUpdateProps): void {
     entities.forEach((entity) => {
       const cameraComponent = entity.get<CameraComponent>("camera");
 
@@ -70,8 +70,8 @@ export class CameraRightStickSystem implements System {
       // Process camera movement
       const dir = this.processCameraMovement(actX, actY);
 
-      // Update camera fixed state
-      cameraComponent.isFixed = dir === "idle";
+      // Update camera fixed state using the component's setter
+      cameraComponent.setFixed(dir === "idle");
     });
   }
 

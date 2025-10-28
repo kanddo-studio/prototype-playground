@@ -33,7 +33,6 @@ export class GameScene extends Phaser.Scene {
 
   private playerSystems: Array<{ update: (props: SystemUpdateProps) => void }> =
     [];
-  private defaultSystems: Array<{ update: () => void }> = [];
 
   constructor() {
     super("game-scene");
@@ -58,16 +57,10 @@ export class GameScene extends Phaser.Scene {
     this.physicsSystem = new PhysicsSystem();
     this.animationSystem = new AnimationSystem();
 
-    this.cameraSystem = new CameraSystem(this, this.player);
-    this.cameraZoomSystem = new CameraZoomSystem(this, this.player);
-    this.cameraDragNDropSystem = new CameraDragNDropSystem(this, this.player);
+    this.cameraSystem = new CameraSystem(this);
+    this.cameraZoomSystem = new CameraZoomSystem(this);
+    this.cameraDragNDropSystem = new CameraDragNDropSystem(this);
     this.cameraRightStickSystem = new CameraRightStickSystem(this);
-
-    this.defaultSystems = [
-      this.cameraSystem,
-      this.cameraZoomSystem,
-      this.cameraDragNDropSystem,
-    ];
 
     this.playerSystems = [
       this.keyboardSystem,
@@ -75,15 +68,14 @@ export class GameScene extends Phaser.Scene {
       this.movementSystem,
       this.physicsSystem,
       this.animationSystem,
+      this.cameraSystem,
+      this.cameraZoomSystem,
+      this.cameraDragNDropSystem,
       this.cameraRightStickSystem,
     ];
   }
 
   update(_time: number) {
-    for (const system of this.defaultSystems) {
-      system.update();
-    }
-
     for (const system of this.playerSystems) {
       system.update({ entities: [this.player] });
     }

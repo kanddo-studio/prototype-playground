@@ -32,6 +32,7 @@ export class PhysicsSystem implements System {
       );
 
       const physics = this.getComponent<PhysicsComponent>(entity, "physics");
+      physics.setCollideWorldBounds();
 
       // Apply desired velocity to physics body
       this.applyVelocityToBody(physics, desiredVelocity);

@@ -5,7 +5,6 @@ import { Entity } from "../../components/Entity";
 import { PhysicsComponent } from "../../components/Physics";
 import { PlayerAnimationFactory } from "./AnimationFactory";
 import { CameraComponent } from "../../components/Camera";
-import { PositionComponent } from "../../components/Position";
 import { VelocityComponent } from "../../components/Velocity";
 import { InputComponent } from "../../components/Input";
 import { DesiredVelocityComponent } from "../../components/DesiredVelocity";
@@ -32,28 +31,26 @@ export class PlayerFactory {
     // Create animations and sprite for the player
     PlayerAnimationFactory.createAnimations(scene);
     const sprite = PlayerAnimationFactory.createSprite(scene);
+    const body = sprite.body as Phaser.Physics.Arcade.Body;
 
     // Configure the physics body size and offset for accurate collision
-    sprite.body?.setSize(16, 16);
-    sprite.body?.setOffset(32, 32);
+    body?.setSize(16, 16);
+    body?.setOffset(32, 32);
 
     // Instantiate the player entity with a unique ID
     const player = new Entity("player");
 
     // Initialize components with default or configured values
-    const positionComponent = new PositionComponent(0, 0);
-    const velocityComponent = new VelocityComponent(400); // speed = 400
+    const velocityComponent = new VelocityComponent(400);
     const desiredVelocityComponent = new DesiredVelocityComponent();
     const inputComponent = new InputComponent();
     const cameraComponent = new CameraComponent({ target: sprite });
-    const physicsComponent = new PhysicsComponent(
-      sprite,
-      positionComponent.x,
-      positionComponent.y,
-    );
+    const physicsComponent = new PhysicsComponent(body, sprite, {
+      x: 100,
+      y: 200,
+    });
 
     // Add components to the player entity with consistent keys
-    player.add("position", positionComponent);
     player.add("velocity", velocityComponent);
     player.add("desiredVelocity", desiredVelocityComponent);
     player.add("input", inputComponent);

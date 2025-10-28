@@ -1,72 +1,143 @@
 import Phaser from "phaser";
-
 import { CameraComponent } from "../../components/Camera";
-import { System } from "../_System";
+import { System, SystemUpdateProps } from "../_System";
 import { Entity } from "../../components/Entity";
-import { PositionComponent } from "../../components/Position";
 
+/**
+ * System responsible for handling camera drag and drop functionality.
+ *
+ * This system allows users to drag the camera view by clicking and dragging
+ * on the scene. It manages the drag state in the CameraComponent and applies
+ * the movement to the Phaser camera.
+ *
+ * Design notes:
+ * - Listens for pointer events in constructor (one-time setup)
+ * - Updates CameraComponent state based on drag interactions
+ * - Applies camera movement directly to Phaser camera
+ * - Uses smooth factor for natural drag feel
+ */
 export class CameraDragNDropSystem implements System {
-  constructor(
-    private scene: Phaser.Scene,
-    private entity: Entity,
-  ) {
-    this.scene.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
-      const cameraComponent = this.entity.get<CameraComponent>("camera");
-      if (!cameraComponent) {
-        throw new Error("Error: Missing Component Dependency");
-      }
+  private readonly smoothFactor: number = 0.2;
+  private readonly dragMultiplier: number = 2;
+  private cameraEntity: Entity | null = null;
 
-      cameraComponent.isFixed = false;
-      cameraComponent.isDragging = true;
-      cameraComponent.dragStartX = pointer.worldX;
-      cameraComponent.dragStartY = pointer.worldY;
+  /**
+   * Creates a new CameraDragNDropSystem and sets up pointer event listeners.
+   * @param scene - The Phaser scene containing the camera to control.
+   */
+  constructor(private scene: Phaser.Scene) {
+    this.setupEventListeners();
+  }
+
+  /**
+   * Sets up all pointer event listeners.
+   */
+  private setupEventListeners(): void {
+    this.scene.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
+      if (this.cameraEntity) {
+        this.handlePointerDown(this.cameraEntity, pointer);
+      }
     });
 
     this.scene.input.on("pointerup", () => {
-      const cameraComponent = this.entity.get<CameraComponent>("camera");
-      const positionComponent = this.entity.get<PositionComponent>("position");
-
-      if (!cameraComponent || !positionComponent) {
-        throw new Error("Error: Missing Component Dependency");
+      if (this.cameraEntity) {
+        this.handlePointerUp(this.cameraEntity);
       }
-
-      cameraComponent.isFixed = true;
-      cameraComponent.isDragging = false;
     });
 
     this.scene.input.on("pointerupoutside", () => {
-      const cameraComponent = this.entity.get<CameraComponent>("camera");
-      const positionComponent = this.entity.get<PositionComponent>("position");
-
-      if (!cameraComponent || !positionComponent) {
-        throw new Error("Error: Missing Component Dependency");
+      if (this.cameraEntity) {
+        this.handlePointerUp(this.cameraEntity);
       }
-
-      cameraComponent.isFixed = true;
-      cameraComponent.isDragging = false;
     });
 
     this.scene.input.on("pointermove", (pointer: Phaser.Input.Pointer) => {
-      const cameraComponent = this.entity.get<CameraComponent>("camera");
-
-      if (!cameraComponent) {
-        throw new Error("Error: Missing Component Dependency");
+      if (this.cameraEntity) {
+        this.handlePointerMove(this.cameraEntity, pointer);
       }
-
-      if (!cameraComponent.isDragging) return;
-
-      const camera = scene.cameras.main;
-
-      const dragX = (pointer.worldX - cameraComponent.dragStartX) * 2;
-      const dragY = (pointer.worldY - cameraComponent.dragStartY) * 2;
-
-      const smoothFactor = 0.2;
-      camera.scrollX -= (dragX * smoothFactor) / camera.zoom;
-      camera.scrollY -= (dragY * smoothFactor) / camera.zoom;
-
-      cameraComponent.dragStartX = pointer.worldX;
-      cameraComponent.dragStartY = pointer.worldY;
     });
   }
-  update(): void {}
+
+  /**
+   * Updates the camera entity reference.
+   * @param entities - The list of entities to process (expects exactly one camera entity).
+   */
+  update({ entities }: SystemUpdateProps): void {
+    // Store reference to camera entity for use in event listeners
+    if (entities.length > 0) {
+      this.cameraEntity = entities[0];
+    }
+  }
+
+  /**
+   * Handles pointer down event - starts camera drag.
+   * @param entity - The entity containing the CameraComponent.
+   * @param pointer - The pointer event data.
+   */
+  private handlePointerDown(
+    entity: Entity,
+    pointer: Phaser.Input.Pointer,
+  ): void {
+    const cameraComponent = this.validateAndGet(entity);
+
+    // Start dragging
+    cameraComponent.setFixed(false);
+    cameraComponent.startDrag(pointer.worldX, pointer.worldY);
+  }
+
+  /**
+   * Handles pointer up event - stops camera drag.
+   * @param entity - The entity containing the CameraComponent.
+   */
+  private handlePointerUp(entity: Entity): void {
+    const cameraComponent = this.validateAndGet(entity);
+
+    // Stop dragging
+    cameraComponent.setFixed(true);
+    cameraComponent.endDrag();
+  }
+
+  /**
+   * Handles pointer move event - updates camera position during drag.
+   * @param entity - The entity containing the CameraComponent.
+   * @param pointer - The pointer event data.
+   */
+  private handlePointerMove(
+    entity: Entity,
+    pointer: Phaser.Input.Pointer,
+  ): void {
+    const cameraComponent = this.validateAndGet(entity);
+
+    // Only process if dragging
+    if (!cameraComponent.isDragging) return;
+
+    const camera = this.scene.cameras.main;
+
+    // Calculate drag delta
+    const dragX =
+      (pointer.worldX - cameraComponent.dragStartX) * this.dragMultiplier;
+    const dragY =
+      (pointer.worldY - cameraComponent.dragStartY) * this.dragMultiplier;
+
+    // Apply smooth camera movement
+    camera.scrollX -= (dragX * this.smoothFactor) / cameraComponent.zoom;
+    camera.scrollY -= (dragY * this.smoothFactor) / cameraComponent.zoom;
+
+    // Update drag start position
+    cameraComponent.startDrag(pointer.worldX, pointer.worldY);
+  }
+
+  /**
+   * Validates entity has required CameraComponent and returns it.
+   * @param entity - The entity to validate.
+   * @returns The validated CameraComponent.
+   * @throws Error if component is missing.
+   */
+  private validateAndGet(entity: Entity): CameraComponent {
+    const component = entity.get<CameraComponent>("camera");
+    if (!component) {
+      throw new Error("Error: Missing CameraComponent");
+    }
+    return component;
+  }
 }
