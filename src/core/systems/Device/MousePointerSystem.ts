@@ -4,7 +4,6 @@ import { Entity } from "../../components/_/_Entity";
 import { MouseDragComponent } from "../../components/Device/MouseDragComponent";
 
 /**
- * Responsibility:
  * - Attach pointer listeners to the Phaser scene
  * - Update MouseDragComponent instances on entities passed in via update()
  *
@@ -13,7 +12,7 @@ import { MouseDragComponent } from "../../components/Device/MouseDragComponent";
  * - The system keeps a live reference to the entities array provided each update()
  * - It only mutates MouseDragComponent (does NOT touch CameraComponent)
  */
-export class PointerSystem implements System {
+export class MousePointerSystem implements System {
   private entities: Entity[] = [];
 
   private pointerDownHandler: (pointer: Phaser.Input.Pointer) => void;

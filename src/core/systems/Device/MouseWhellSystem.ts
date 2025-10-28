@@ -4,7 +4,6 @@ import { Entity } from "../../components/_/_Entity";
 import { MouseWheelComponent } from "../../components/Device/MouseWheelComponent";
 
 /**
- * MouseSystem
  * Responsible for listening to scene mouse wheel events and updating the
  * MouseWheelComponent(s) attached to entities passed into the system.
  *
@@ -14,7 +13,7 @@ import { MouseWheelComponent } from "../../components/Device/MouseWheelComponent
  * - When a wheel event fires, it updates all entities that have a MouseWheelComponent and are enabled.
  * - The listener is removable via destroy() to avoid leaks.
  */
-export class MouseSystem implements System {
+export class MouseWhellSystem implements System {
   private entities: Entity[] = [];
   private wheelHandler: (
     pointer: Phaser.Input.Pointer,
@@ -25,7 +24,7 @@ export class MouseSystem implements System {
   ) => void;
 
   /**
-   * Construct the MouseSystem and attach wheel listener to the scene.
+   * Construct the MouseWhellSystem and attach wheel listener to the scene.
    * @param scene - Phaser scene to bind input events to.
    */
   constructor(private scene: Phaser.Scene) {

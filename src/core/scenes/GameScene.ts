@@ -16,15 +16,15 @@ import { PlayerFactory } from "../factories/Player/PlayerFactory";
 
 import * as Utils from "../utils";
 import { SystemUpdateProps } from "../systems/_/_System";
-import { MouseSystem } from "../systems/Device/MouseSystem";
-import { PointerSystem } from "../systems/Device/PointerSystem";
+import { MouseWhellSystem } from "../systems/Device/MouseWhellSystem";
+import { MousePointerSystem } from "../systems/Device/MousePointerSystem";
 
 export class GameScene extends Phaser.Scene {
   player!: Entity;
 
   private keyboardSystem!: KeyboardSystem;
-  private mouseSystem!: MouseSystem;
-  private pointerSystem!: PointerSystem;
+  private mouseWhellSystem!: MouseWhellSystem;
+  private mousePointerSystem!: MousePointerSystem;
   private gamepadSystem!: GamepadSystem;
   private movementSystem!: MovementSystem;
   private physicsSystem!: PhysicsSystem;
@@ -56,8 +56,8 @@ export class GameScene extends Phaser.Scene {
 
   private initSystems() {
     this.keyboardSystem = new KeyboardSystem(this);
-    this.mouseSystem = new MouseSystem(this);
-    this.pointerSystem = new PointerSystem(this);
+    this.mouseWhellSystem = new MouseWhellSystem(this);
+    this.mousePointerSystem = new MousePointerSystem(this);
     this.gamepadSystem = new GamepadSystem(this);
     this.movementSystem = new MovementSystem();
     this.physicsSystem = new PhysicsSystem();
@@ -70,8 +70,8 @@ export class GameScene extends Phaser.Scene {
 
     this.playerSystems = [
       this.keyboardSystem,
-      this.mouseSystem,
-      this.pointerSystem,
+      this.mouseWhellSystem,
+      this.mousePointerSystem,
       this.gamepadSystem,
       this.movementSystem,
       this.physicsSystem,

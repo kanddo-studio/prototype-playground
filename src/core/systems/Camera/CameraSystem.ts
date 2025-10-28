@@ -2,6 +2,8 @@ import Phaser from "phaser";
 import { CameraComponent } from "../../components/CameraComponent";
 import { System, SystemUpdateProps } from "../_/_System";
 import { Entity } from "../../components/_/_Entity";
+import { Component } from "../../components/_/_Component";
+import { MissingComponentError } from "../../errors/MissingComponentError";
 
 /**
  * System responsible for managing camera following behavior based on CameraComponent state.
@@ -33,7 +35,10 @@ export class CameraSystem implements System {
     }
 
     const entity = entities[0];
-    const cameraComponent = this.validateAndGet(entity);
+    const cameraComponent = this.getComponent<CameraComponent>(
+      entity,
+      "camera",
+    );
 
     // Validate target exists
     if (!cameraComponent.target) {
@@ -49,15 +54,19 @@ export class CameraSystem implements System {
   }
 
   /**
-   * Validates entity has required CameraComponent and returns it.
-   * @param entity - The entity to validate.
-   * @returns The validated CameraComponent.
-   * @throws Error if component is missing.
+   * Validates entity has required component and returns it.
+   * @param entity - The entity to check.
+   * @param componentName - The name of the component to validate.
+   * @returns The component instance.
+   * @throws MissingComponentError if component is missing.
    */
-  private validateAndGet(entity: Entity): CameraComponent {
-    const component = entity.get<CameraComponent>("camera");
+  private getComponent<T extends Component>(
+    entity: Entity,
+    componentName: string,
+  ): T {
+    const component = entity.get<T>(componentName);
     if (!component) {
-      throw new Error("Error: Missing CameraComponent");
+      throw new MissingComponentError(entity.id, componentName);
     }
     return component;
   }
