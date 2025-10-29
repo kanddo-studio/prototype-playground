@@ -12,6 +12,8 @@ import { MouseWheelComponent } from "../../components/Device/MouseWheelComponent
 import { MouseDragComponent } from "../../components/Device/MouseDragComponent";
 import { RightStickComponent } from "../../components/Device/RightStickComponent";
 import { LeftStickComponent } from "../../components/Device/LeftStickComponent";
+import { HitboxComponent } from "../../components/HitboxComponent";
+import { FacingComponent } from "../../components/FacingComponent";
 
 /**
  * Factory class responsible for creating and initializing the player entity
@@ -59,6 +61,14 @@ export class PlayerFactory {
     });
 
     physicsComponent.setPosition(400, 300);
+    const hitboxComponent = new HitboxComponent({
+      width: 32,
+      height: 64,
+      distance: 48,
+      durationMs: 500,
+      debug: true,
+    });
+    const facingComponent = new FacingComponent();
 
     // Add components to the player entity with consistent keys
     player.add("velocity", velocityComponent);
@@ -70,6 +80,8 @@ export class PlayerFactory {
     player.add("mouseDrag", mouseDragComponent);
     player.add("camera", cameraComponent);
     player.add("physics", physicsComponent);
+    player.add("hitbox", hitboxComponent);
+    player.add("facing", facingComponent);
 
     return player;
   }

@@ -85,7 +85,7 @@ export const PlayerStatus: React.FC<PlayerStatusProps> = ({
         aria-hidden={false}
         aria-label={`Health ${clamped} of ${safeMax}`}
       >
-        <HealthFill fillPercent={fillPercent} />
+        <HealthFill $fillPercent={fillPercent} />
       </HealthBarWrapper>
     </Container>
   );

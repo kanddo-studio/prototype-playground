@@ -46,6 +46,7 @@ export class KeyboardSystem implements System {
         if (this.cursors.right?.isDown) inputComponent.add(KEYS.RIGHT);
         if (this.cursors.up?.isDown) inputComponent.add(KEYS.UP);
         if (this.cursors.down?.isDown) inputComponent.add(KEYS.DOWN);
+        if (this.cursors.space?.isDown) inputComponent.add(KEYS.ATTACK);
       }
     });
   }

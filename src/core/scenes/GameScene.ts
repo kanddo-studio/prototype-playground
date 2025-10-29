@@ -20,6 +20,9 @@ import { MouseWhellSystem } from "../systems/Device/MouseWhellSystem";
 import { MousePointerSystem } from "../systems/Device/MousePointerSystem";
 import { EventBus } from "../../event/EventBus";
 import { SCENES } from "../../types/scenes.enum";
+import { HitboxSystem } from "../systems/HitboxSystem";
+import { AttackSystem } from "../systems/AttackSystem";
+import { FacingSystem } from "../systems/FacingSystem";
 
 export class GameScene extends Phaser.Scene {
   player!: Entity;
@@ -36,6 +39,10 @@ export class GameScene extends Phaser.Scene {
   private cameraZoomSystem!: CameraZoomSystem;
   private cameraDragSystem!: CameraDragSystem;
   private cameraRightStickSystem!: CameraRightStickSystem;
+
+  private hitboxSystem!: HitboxSystem;
+  private facingSystem!: FacingSystem;
+  private attackSystem!: AttackSystem;
 
   private playerSystems: Array<{ update: (props: SystemUpdateProps) => void }> =
     [];
@@ -73,6 +80,10 @@ export class GameScene extends Phaser.Scene {
     this.cameraDragSystem = new CameraDragSystem(this);
     this.cameraRightStickSystem = new CameraRightStickSystem(this);
 
+    this.facingSystem = new FacingSystem();
+    this.hitboxSystem = new HitboxSystem(this);
+    this.attackSystem = new AttackSystem(this);
+
     this.playerSystems = [
       this.keyboardSystem,
       this.mouseWhellSystem,
@@ -92,5 +103,12 @@ export class GameScene extends Phaser.Scene {
     for (const system of this.playerSystems) {
       system.update({ entities: [this.player] });
     }
+
+    this.facingSystem.update({ entities: [this.player] });
+    this.attackSystem.update({ entities: [this.player] });
+
+    const enemiesArray = [] as any;
+    const combatEntities = [this.player, ...enemiesArray]; 
+    this.hitboxSystem.update({ entities: combatEntities });
   }
 }

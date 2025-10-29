@@ -17,14 +17,8 @@ export const Container = styled.div`
   border-radius: 8px;
   min-width: 180px;
   color: #ffffff;
-  font-family:
-    Inter,
-    system-ui,
-    -apple-system,
-    "Segoe UI",
-    Roboto,
-    "Helvetica Neue",
-    Arial;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
 `;
 
 /** Top row containing title and optional badges */
@@ -71,9 +65,9 @@ export const HealthBarWrapper = styled.div`
 `;
 
 /** Colored fill of the health bar */
-export const HealthFill = styled.div<{ fillPercent: number }>`
+export const HealthFill = styled.div<{ $fillPercent: number }>`
   height: 100%;
-  width: ${(p) => Math.max(0, Math.min(100, p.fillPercent))}%;
+  width: ${(p) => Math.max(0, Math.min(100, p.$fillPercent))}%;
   transition: width 220ms ease;
   background: linear-gradient(90deg, #ff5f6d, #ffc371);
 `;
