@@ -59,7 +59,7 @@ export class PlayerFactory {
     });
 
     physicsComponent.setPosition(400, 300);
-    
+
     // Add components to the player entity with consistent keys
     player.add("velocity", velocityComponent);
     player.add("desiredVelocity", desiredVelocityComponent);
