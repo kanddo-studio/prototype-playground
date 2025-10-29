@@ -19,5 +19,4 @@ export const GAMEPAD_BUTTONS = {
 
 export type GamepadButtonName = keyof typeof GAMEPAD_BUTTONS;
 
-
 export const DEFAULT_BUTTON_THRESHOLD = 0.5;
