@@ -10,7 +10,7 @@
     "url": "https://github.com/kanddo-studio"
   },
   "scripts": {
-    "start:dev:web": "npm run build && NODE_ENV=development vite",
+    "start:dev:web": "NODE_ENV=development vite",
     "start:dev:desktop": "NODE_ENV=development electron . --enable-accelerated-2d-canvas --enable-gpu-rasterization -disable-software-rasterizer",
     "start:prod:web": "npm run build && vite preview",
     "build": "NODE_ENV=production tsc && vite build",

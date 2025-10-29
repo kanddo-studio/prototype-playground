@@ -8,7 +8,7 @@ import { KEYS } from "../../../types/keys.enum";
 import {
   DEFAULT_BUTTON_THRESHOLD,
   GAMEPAD_BUTTONS,
-} from "../../../types/gamepad";
+} from "../../../types/gamepad.const";
 
 /**
  * Reads gamepad inputs and updates:

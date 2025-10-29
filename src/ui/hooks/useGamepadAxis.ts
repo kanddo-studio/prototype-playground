@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { DEFAULT_BUTTON_THRESHOLD } from "../../types/gamepad.const";
 
 type AxisDirection = "up" | "down" | "idle";
 
@@ -32,7 +33,7 @@ type UseGamepadAxisProps = {
 export const useGamepadAxis = ({
   axisIndex,
   handler,
-  deadzone = 0.5,
+  deadzone = DEFAULT_BUTTON_THRESHOLD,
   initialDelayMs = 400,
   repeatDelayMs = 120,
 }: UseGamepadAxisProps): void => {

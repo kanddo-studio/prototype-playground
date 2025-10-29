@@ -3,6 +3,8 @@
  * Used for character movement, UI navigation, etc.
  */
 
+import { DEFAULT_BUTTON_THRESHOLD } from "../../../types/gamepad.const";
+
 export interface Component {}
 
 export class LeftStickComponent implements Component {
@@ -24,7 +26,7 @@ export class LeftStickComponent implements Component {
   /**
    * Deadzone to apply before setting values
    */
-  public deadzone: number = 0.5; // default for left stick
+  public deadzone: number = DEFAULT_BUTTON_THRESHOLD; // default for left stick
 
   /**
    * Set raw axis values with optional deadzone filtering

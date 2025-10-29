@@ -15,8 +15,6 @@ export const GAMEPAD_BUTTONS = {
   DPAD_DOWN: 13,
   DPAD_LEFT: 14,
   DPAD_RIGHT: 15,
-} as const;
-
-export type GamepadButtonName = keyof typeof GAMEPAD_BUTTONS;
+};
 
 export const DEFAULT_BUTTON_THRESHOLD = 0.5;

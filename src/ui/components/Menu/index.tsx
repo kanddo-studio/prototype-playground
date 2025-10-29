@@ -12,6 +12,7 @@ import {
   ActionButton,
   HelperText,
 } from "./index.styles";
+import { GAMEPAD_BUTTONS } from "../../../types/gamepad.const";
 
 type Props = {
   isPaused: boolean;
@@ -71,14 +72,14 @@ export const Menu: React.FC<Props> = ({
   useKeyboardShortcuts({
     shortcuts: [
       {
-        key: "ArrowUp",
+        key: KEYS.UP,
         handler: () => {
           if (!acceptInput()) return;
           setSelectedIndex((prev) => (prev === 0 ? 1 : prev - 1));
         },
       },
       {
-        key: "ArrowDown",
+        key: KEYS.DOWN,
         handler: () => {
           if (!acceptInput()) return;
           setSelectedIndex((prev) => (prev === 1 ? 0 : prev + 1));
@@ -96,21 +97,26 @@ export const Menu: React.FC<Props> = ({
 
   // Gamepad buttons handling (D-Pad, A, Start)
   useGamepadButtons({
-    buttons: [12, 13, 0, 9],
+    buttons: [
+      GAMEPAD_BUTTONS.DPAD_UP,
+      GAMEPAD_BUTTONS.DPAD_DOWN,
+      GAMEPAD_BUTTONS.A,
+      GAMEPAD_BUTTONS.START,
+    ],
     handler: (index) => {
       if (!acceptInput()) return;
 
       switch (index) {
-        case 12: // D-Pad Up
+        case GAMEPAD_BUTTONS.DPAD_UP: 
           setSelectedIndex((prev) => (prev === 0 ? 1 : prev - 1));
           break;
-        case 13: // D-Pad Down
+        case GAMEPAD_BUTTONS.DPAD_DOWN:
           setSelectedIndex((prev) => (prev === 1 ? 0 : prev + 1));
           break;
-        case 0: // A - confirm
+        case GAMEPAD_BUTTONS.A:
           confirmSelection(selectedIndex);
           break;
-        case 9: // Start - toggle pause
+        case GAMEPAD_BUTTONS.START:
           isPaused ? handleResume() : handlePause();
           break;
         default:

@@ -3,6 +3,8 @@
  * Used for camera control, aiming, etc.
  */
 
+import { DEFAULT_BUTTON_THRESHOLD } from "../../../types/gamepad.const";
+
 export interface Component {}
 
 export class RightStickComponent implements Component {
@@ -24,7 +26,7 @@ export class RightStickComponent implements Component {
   /**
    * Deadzone to apply before setting values
    */
-  public deadzone: number = 0.3; // default for right stick
+  public deadzone: number = DEFAULT_BUTTON_THRESHOLD; // default for right stick
 
   /**
    * Set raw axis values with optional deadzone filtering
