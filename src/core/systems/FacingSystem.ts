@@ -62,9 +62,9 @@ export class FacingSystem implements System {
     if (x === 0 && y === 0) return undefined; // idle -> do not change facing
     // choose dominant axis
     if (Math.abs(x) >= Math.abs(y)) {
-      return x < 0 ? (KEYS.LEFT) : (KEYS.RIGHT);
+      return x < 0 ? KEYS.LEFT : KEYS.RIGHT;
     } else {
-      return y < 0 ? (KEYS.UP) : (KEYS.DOWN);
+      return y < 0 ? KEYS.UP : KEYS.DOWN;
     }
   }
 }

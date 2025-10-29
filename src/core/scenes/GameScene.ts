@@ -108,7 +108,7 @@ export class GameScene extends Phaser.Scene {
     this.attackSystem.update({ entities: [this.player] });
 
     const enemiesArray = [] as any;
-    const combatEntities = [this.player, ...enemiesArray]; 
+    const combatEntities = [this.player, ...enemiesArray];
     this.hitboxSystem.update({ entities: combatEntities });
   }
 }

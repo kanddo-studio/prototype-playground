@@ -17,8 +17,14 @@ export const Container = styled.div`
   border-radius: 8px;
   min-width: 180px;
   color: #ffffff;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial;
 `;
 
 /** Top row containing title and optional badges */
