@@ -165,7 +165,7 @@ export const Menu: React.FC<Props> = ({
   return (
     <Overlay role="dialog" aria-modal="true" aria-label="Pause menu">
       <Card>
-        <Title>PAUSADO</Title>
+        <Title>MENU</Title>
 
         <Buttons>
           <ActionButton
@@ -176,7 +176,7 @@ export const Menu: React.FC<Props> = ({
             }}
             aria-pressed={selectedIndex === 0}
           >
-            Despausar
+            Continuar
           </ActionButton>
 
           <ActionButton
