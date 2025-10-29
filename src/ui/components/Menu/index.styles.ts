@@ -34,10 +34,17 @@ export const Card = styled.div`
   color: #ffffff;
   min-width: 320px;
   border-radius: 12px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4),
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.4),
     inset 0 0 0 1px rgba(255, 255, 255, 0.04);
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial;
   opacity: 0.95;
 `;
 
@@ -89,7 +96,10 @@ export const ActionButton = styled.button<ActionButtonProps>`
     p.selected
       ? "0 4px 12px rgba(76, 175, 80, 0.24)"
       : "0 2px 6px rgba(0, 0, 0, 0.12)"};
-  transition: background 160ms ease, outline 120ms ease, box-shadow 160ms ease,
+  transition:
+    background 160ms ease,
+    outline 120ms ease,
+    box-shadow 160ms ease,
     transform 80ms ease;
   text-align: center;
   user-select: none;

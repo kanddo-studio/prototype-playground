@@ -107,7 +107,7 @@ export const Menu: React.FC<Props> = ({
       if (!acceptInput()) return;
 
       switch (index) {
-        case GAMEPAD_BUTTONS.DPAD_UP: 
+        case GAMEPAD_BUTTONS.DPAD_UP:
           setSelectedIndex((prev) => (prev === 0 ? 1 : prev - 1));
           break;
         case GAMEPAD_BUTTONS.DPAD_DOWN:
