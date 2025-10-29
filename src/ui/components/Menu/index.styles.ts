@@ -73,7 +73,9 @@ export const ActionButton = styled.button<ActionButtonProps>`
   outline: ${(p) => (p.selected ? "2px solid #b8ffb0" : "none")};
   box-shadow: ${(p) =>
     p.selected ? "inset 0 -3px 0 rgba(0,0,0,0.12)" : "none"};
-  transition: background-color 120ms ease, outline 120ms ease;
+  transition:
+    background-color 120ms ease,
+    outline 120ms ease;
   text-align: center;
   user-select: none;
 
