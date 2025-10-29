@@ -11,7 +11,6 @@ import { HUD } from "./ui";
   // You can expose the game to window for debugging if needed
   // (avoid in production)
   (window as any).__PHASER_GAME__ = game;
-  console.log("[DEBUG] Phaser game started:", game);
 })();
 
 /**

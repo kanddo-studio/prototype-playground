@@ -14,7 +14,8 @@
 
 /** Map of event keys to payload types. Extend as needed. */
 export type EventMap = {
-  "game:updateStats": { health: number; score: number };
+  "hud:stats": { health: number; score: number };
+  "hud:pause": { isPaused: boolean, scene: Phaser.Scenes.ScenePlugin };
 };
 
 type EventKey = keyof EventMap;

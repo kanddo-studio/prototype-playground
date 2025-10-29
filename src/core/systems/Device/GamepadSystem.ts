@@ -4,6 +4,11 @@ import { InputComponent } from "../../components/Device/InputComponent";
 import { LeftStickComponent } from "../../components/Device/LeftStickComponent";
 import { RightStickComponent } from "../../components/Device/RightStickComponent";
 import { MissingDependencyError } from "../../errors/MissingDependencyError";
+import { KEYS } from "../../../types/keys.enum";
+import {
+  DEFAULT_BUTTON_THRESHOLD,
+  GAMEPAD_BUTTONS,
+} from "../../../types/gamepad";
 
 /**
  * Reads gamepad inputs and updates:
@@ -13,13 +18,12 @@ import { MissingDependencyError } from "../../errors/MissingDependencyError";
  */
 export class GamepadSystem implements System {
   private pad?: Phaser.Input.Gamepad.Gamepad;
-  private readonly leftStickThreshold: number = 0.5;
 
   private readonly dPadButtonMap: Record<number, string> = {
-    12: "ArrowUp",
-    13: "ArrowDown",
-    14: "ArrowLeft",
-    15: "ArrowRight",
+    [GAMEPAD_BUTTONS.DPAD_UP]: KEYS.UP,
+    [GAMEPAD_BUTTONS.DPAD_DOWN]: KEYS.DOWN,
+    [GAMEPAD_BUTTONS.DPAD_LEFT]: KEYS.LEFT,
+    [GAMEPAD_BUTTONS.DPAD_RIGHT]: KEYS.RIGHT,
   };
 
   constructor(scene: Phaser.Scene) {
@@ -83,6 +87,8 @@ export class GamepadSystem implements System {
       const button = this.pad!.buttons[parseInt(buttonIndex)];
       if (button?.value) {
         inputComponent.add(key);
+      } else {
+        inputComponent.remove(key);
       }
     });
   }
@@ -96,16 +102,16 @@ export class GamepadSystem implements System {
     xAxis: number,
     yAxis: number,
   ): void {
-    if (xAxis < -this.leftStickThreshold) {
-      inputComponent.add("ArrowLeft");
-    } else if (xAxis > this.leftStickThreshold) {
-      inputComponent.add("ArrowRight");
+    if (xAxis < -DEFAULT_BUTTON_THRESHOLD) {
+      inputComponent.add(KEYS.LEFT);
+    } else if (xAxis > DEFAULT_BUTTON_THRESHOLD) {
+      inputComponent.add(KEYS.RIGHT);
     }
 
-    if (yAxis < -this.leftStickThreshold) {
-      inputComponent.add("ArrowUp");
-    } else if (yAxis > this.leftStickThreshold) {
-      inputComponent.add("ArrowDown");
+    if (yAxis < -DEFAULT_BUTTON_THRESHOLD) {
+      inputComponent.add(KEYS.UP);
+    } else if (yAxis > DEFAULT_BUTTON_THRESHOLD) {
+      inputComponent.add(KEYS.DOWN);
     }
   }
 

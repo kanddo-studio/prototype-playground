@@ -4,11 +4,8 @@ import { InputComponent } from "../components/Device/InputComponent";
 import { PhysicsComponent } from "../components/PhysicsComponent";
 import { System, SystemUpdateProps } from "./_/_System";
 import { MissingComponentError } from "../errors/MissingComponentError";
-
-/**
- * Direction type for tracking entity facing direction.
- */
-type Direction = "up" | "down" | "left" | "right";
+import { KEYS } from "../../types/keys.enum";
+import { DIRECTION } from "../../types/direction.type";
 
 /**
  * System responsible for handling entity animations based on input and movement.
@@ -31,7 +28,7 @@ type Direction = "up" | "down" | "left" | "right";
  * - idle-down (downward idle)
  */
 export class AnimationSystem implements System {
-  private lastDirection: Direction = "right";
+  private lastDirection: DIRECTION = KEYS.RIGHT;
 
   /**
    * Animation key mapping for different directions.
@@ -106,10 +103,10 @@ export class AnimationSystem implements System {
     sprite: Phaser.Physics.Arcade.Sprite,
     inputComponent: InputComponent,
   ): void {
-    const hasLeft = inputComponent.has("ArrowLeft");
-    const hasRight = inputComponent.has("ArrowRight");
-    const hasUp = inputComponent.has("ArrowUp");
-    const hasDown = inputComponent.has("ArrowDown");
+    const hasLeft = inputComponent.has(KEYS.LEFT);
+    const hasRight = inputComponent.has(KEYS.RIGHT);
+    const hasUp = inputComponent.has(KEYS.UP);
+    const hasDown = inputComponent.has(KEYS.DOWN);
 
     // Check if all directions are pressed
     const allDirectionsPressed = hasLeft && hasRight && hasUp && hasDown;
@@ -125,12 +122,12 @@ export class AnimationSystem implements System {
 
     // Process pure vertical movement (up or down alone)
     if (hasUp && !hasDown && !hasLeft && !hasRight) {
-      this.handleMovement(sprite, "up", sprite.flipX);
+      this.handleMovement(sprite, KEYS.UP, sprite.flipX);
       return;
     }
 
     if (hasDown && !hasUp && !hasLeft && !hasRight) {
-      this.handleMovement(sprite, "down", sprite.flipX);
+      this.handleMovement(sprite, KEYS.DOWN, sprite.flipX);
       return;
     }
 
@@ -138,13 +135,13 @@ export class AnimationSystem implements System {
     if (horizontalConflict) {
       if (hasUp && !hasDown) {
         // Left + Right + Up - play up animation
-        this.handleMovement(sprite, "up", sprite.flipX);
+        this.handleMovement(sprite, KEYS.UP, sprite.flipX);
         return;
       }
 
       if (hasDown && !hasUp) {
         // Left + Right + Down - play down animation
-        this.handleMovement(sprite, "down", sprite.flipX);
+        this.handleMovement(sprite, KEYS.DOWN, sprite.flipX);
         return;
       }
 
@@ -155,9 +152,9 @@ export class AnimationSystem implements System {
 
     // Process horizontal movement or diagonal
     if (hasLeft) {
-      this.handleMovement(sprite, "left", true);
+      this.handleMovement(sprite, KEYS.LEFT, true);
     } else if (hasRight) {
-      this.handleMovement(sprite, "right", false);
+      this.handleMovement(sprite, KEYS.RIGHT, false);
     } else {
       // No movement
       this.handleIdle(sprite);
@@ -172,23 +169,23 @@ export class AnimationSystem implements System {
    */
   private handleMovement(
     sprite: Phaser.Physics.Arcade.Sprite,
-    direction: Direction,
+    direction: DIRECTION,
     flipX: boolean,
   ): void {
     // Update last direction
     this.lastDirection = direction;
 
     // Apply sprite flipping for horizontal movement
-    if (direction === "left" || direction === "right") {
+    if (direction === KEYS.LEFT || direction === KEYS.RIGHT) {
       sprite.setFlipX(flipX);
     }
 
     // Play appropriate walking animation
     switch (direction) {
-      case "up":
+      case KEYS.UP:
         sprite.anims.play(this.animationKeys.walkUp, true);
         break;
-      case "down":
+      case KEYS.DOWN:
         sprite.anims.play(this.animationKeys.walkDown, true);
         break;
       default: // left or right
@@ -203,10 +200,10 @@ export class AnimationSystem implements System {
    */
   private handleIdle(sprite: Phaser.Physics.Arcade.Sprite): void {
     switch (this.lastDirection) {
-      case "up":
+      case KEYS.UP:
         sprite.anims.play(this.animationKeys.idleUp, true);
         break;
-      case "down":
+      case KEYS.DOWN:
         sprite.anims.play(this.animationKeys.idleDown, true);
         break;
       default: // left or right

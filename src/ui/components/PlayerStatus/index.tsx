@@ -7,13 +7,7 @@ type Props = {
 
 export const PlayerStatus: React.FC<Props> = ({ health, score }) => {
   return (
-    <div
-      style={{
-        color: "white",
-        padding: "8px 10px",
-        borderRadius: 6,
-      }}
-    >
+    <div>
       <div style={{ fontWeight: 700 }}>Player</div>
       <div>Health: {health}</div>
       <div>Score: {score}</div>

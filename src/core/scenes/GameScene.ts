@@ -19,6 +19,7 @@ import { SystemUpdateProps } from "../systems/_/_System";
 import { MouseWhellSystem } from "../systems/Device/MouseWhellSystem";
 import { MousePointerSystem } from "../systems/Device/MousePointerSystem";
 import { EventBus } from "../../event/EventBus";
+import { SCENES } from "../../types/scenes.enum";
 
 export class GameScene extends Phaser.Scene {
   player!: Entity;
@@ -40,7 +41,7 @@ export class GameScene extends Phaser.Scene {
     [];
 
   constructor() {
-    super("game-scene");
+    super(SCENES.PLAYGROUND);
   }
 
   preload() {
@@ -52,10 +53,7 @@ export class GameScene extends Phaser.Scene {
 
     this.player = PlayerFactory.create(this);
 
-    EventBus.emit("game:updateStats", {
-      health: 20,
-      score: 0,
-    });
+    EventBus.emit("hud:stats", { health: 20, score: 0 });
 
     this.initSystems();
   }
