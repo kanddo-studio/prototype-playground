@@ -26,6 +26,7 @@
     "@types/jest": "^29.5.14",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
+    "@types/styled-components": "^5.1.35",
     "@vitejs/plugin-react": "^4.7.0",
     "babel-jest": "^29.7.0",
     "electron": "^35.1.2",
@@ -42,7 +43,8 @@
     "@babel/preset-typescript": "^7.27.0",
     "phaser": "^3.88.2",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "styled-components": "^6.1.19"
   },
   "build": {
     "appId": "com.prototype-playground.app",
